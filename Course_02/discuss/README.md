@@ -1,18 +1,83 @@
 # Discuss
 
-To start your Phoenix server:
+A discussion forum web application built with Phoenix 1.8 and LiveView. The project demonstrates a fully scaffolded Phoenix app with browser session management, CSRF protection, Ecto/PostgreSQL persistence, LiveView for reactive UIs, and Gettext for internationalisation.
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Architecture
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+```
+HTTP Request
+    |
+    v
+DiscussWeb.Endpoint
+    |
+    v
+Plug Pipeline (:browser)
+  -- Plug.Session
+  -- CSRF protection
+  -- Flash messages
+    |
+    v
+DiscussWeb.Router
+    |
+    +-- GET /  ->  PageController.home/2
+```
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+### Supervisor Tree
 
-## Learn more
+```
+Discuss.Application
+    |
+    +-- Discuss.Repo          (Ecto / PostgreSQL)
+    +-- {DNSCluster, ...}
+    +-- {Phoenix.PubSub, ...}
+    +-- Swoosh.ApiClient       (email, dev mailbox)
+    +-- DiscussWeb.Endpoint
+```
 
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+## Module Overview
+
+| Module | Responsibility |
+|---|---|
+| `Discuss.Application` | OTP Application, starts the supervisor tree |
+| `Discuss.Repo` | Ecto repository backed by PostgreSQL |
+| `DiscussWeb.Endpoint` | HTTP entry point, static file serving, session config |
+| `DiscussWeb.Router` | Route and pipeline definitions |
+| `DiscussWeb.Layouts` | Root and app layout templates |
+| `DiscussWeb.PageController` | Renders the home page |
+
+## Web Helpers
+
+All LiveView and controller modules import a shared set of helpers via `DiscussWeb` macros:
+
+- `Phoenix.Component` — function components
+- `Phoenix.LiveView` — live view behaviour and helpers
+- `Phoenix.HTML` — HTML tag generation
+- Verified routes via the `~p` sigil
+- Gettext translations
+
+## Running
+
+```bash
+mix deps.get
+mix ecto.setup
+mix phx.server
+```
+
+The app is available at `http://localhost:4000`.
+
+In development, a live email preview is available at `http://localhost:4000/dev/mailbox`.
+
+## Running Tests
+
+```bash
+mix test
+```
+
+## Concepts Practiced
+
+- Phoenix LiveView structure and component helpers
+- Browser plug pipeline (sessions, CSRF, flash)
+- Ecto repository and migration setup
+- Gettext internationalisation
+- Swoosh email adapter with dev mailbox
+- Telemetry instrumentation
