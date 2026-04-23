@@ -1,0 +1,38 @@
+# Compiled artifacts
+_build/
+
+# Dependencies
+deps/
+
+# Test coverage
+cover/
+
+# Generated docs
+doc/
+
+# Erlang crash dumps
+erl_crash.dump
+
+# Mix archives
+*.ez
+
+# Mix hex tarballs
+*.tar
+
+# Elixir Language Server
+.elixir_ls/
+.elixir-tools/
+
+# Fetch lock files
+.fetch
+
+# Temporary files
+tmp/
+
+# Phoenix: compiled assets and digest cache
+priv/static/assets/
+priv/static/cache_manifest.json
+
+# Node (Phoenix asset pipeline)
+assets/node_modules/
+npm-debug.log
