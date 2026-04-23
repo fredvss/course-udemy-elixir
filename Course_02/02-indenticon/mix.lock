@@ -1,0 +1,6 @@
+%{
+  "cc_precompiler": {:hex, :cc_precompiler, "0.1.11", "8c844d0b9fb98a3edea067f94f616b3f6b29b959b6b3bf25fee94ffe34364768", [:mix], [{:elixir_make, "~> 0.7", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm", "3427232caf0835f94680e5bcf082408a70b48ad68a5f5c0b02a3bea9f3a075b9"},
+  "elixir_make": {:hex, :elixir_make, "0.9.0", "6484b3cd8c0cee58f09f05ecaf1a140a8c97670671a6a0e7ab4dc326c3109726", [:mix], [], "hexpm", "db23d4fd8b757462ad02f8aa73431a426fe6671c80b200d9710caf3d1dd0ffdb"},
+  "png": {:hex, :png, "0.2.1", "b25c17c8dcdc40096d46ae2d7c2777c63fede48fa8c8312cc708c88554049d3b", [:rebar3], [], "hexpm", "279345e07108c604871a21f1c91f716810ab559af2b20d6f302e0a98265ef72e"},
+  "vix": {:hex, :vix, "0.37.0", "238e77280368790ed727c7b30e27d237a00360f81bdaaeb2070f048dd837bb06", [:make, :mix], [{:cc_precompiler, "~> 0.1.4 or ~> 0.2", [hex: :cc_precompiler, repo: "hexpm", optional: false]}, {:elixir_make, "~> 0.7.3 or ~> 0.8", [hex: :elixir_make, repo: "hexpm", optional: false]}, {:kino, "~> 0.7", [hex: :kino, repo: "hexpm", optional: true]}], "hexpm", "8f64d453a65942ab6cf71f1128dbebe724873c94801fe9025d28893947ceeb01"},
+}
