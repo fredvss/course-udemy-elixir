@@ -6,12 +6,12 @@ This repository contains projects developed across two Udemy courses focused on 
 
 ```
 course-udemy-elixir/
-├── Course_01/          # Elixir + Phoenix fundamentals (Bootcamp-style)
-│   ├── section01_fizz_buzz/       # Elixir core: pattern matching, I/O
-│   ├── section02_ex_mon/          # OTP Agents, game state, structs
-│   ├── section03_example_phoenix/ # Minimal Phoenix API with Ecto
-│   └── section04_test_bank/       # Full banking API with auth and tests
-└── Course_02/          # Functional patterns and Phoenix LiveView
+├── Course-01/          # Elixir + Phoenix fundamentals (Bootcamp-style)
+│   ├── section01-fizz-buzz/       # Elixir core: pattern matching, I/O
+│   ├── section02-ex-mon/          # OTP Agents, game state, structs
+│   ├── section03-example-phoenix/ # Minimal Phoenix API with Ecto
+│   └── section04-test-bank/       # Full banking API with auth and tests
+└── Course-02/          # Functional patterns and Phoenix LiveView
     ├── 01-cards/        # Functional list operations and file I/O
     ├── 02-indenticon/   # Image generation pipeline
     └── discuss/         # Phoenix LiveView forum application
@@ -54,7 +54,7 @@ Introduces functional programming patterns through small focused projects, culmi
 Each sub-project is a standalone Mix application. To get started with any of them:
 
 ```bash
-cd Course_01/section04_test_bank   # or any project directory
+cd Course-01/section04-test-bank   # or any project directory
 mix deps.get
 mix ecto.setup                     # only for database projects
 mix phx.server                     # only for Phoenix projects
