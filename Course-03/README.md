@@ -15,8 +15,6 @@ Fundamentos da linguagem Elixir.
 | `03-functions-arity-guards-clauses` | Aridade, guards e cláusulas de função |
 | `04-lambda-functions` | Funções anônimas (lambdas) e closures |
 
-> `intro.exs` — arquivo de introdução com exemplos mistos de guards, recursão e lambdas.
-
 ### 02 - Iterations
 
 Iteração e processamento de coleções em Elixir.
@@ -51,8 +49,6 @@ Processos, comunicação e tolerância a falhas em Elixir.
 | `links-and-monitors` | Tratamento de falhas com `spawn_link` e `spawn_monitor` |
 | `game-of-stones-server` | Servidor de estado para o jogo Game of Stones usando processos puros |
 | `game-of-stones-complete` | Versão completa do jogo com cliente e servidor |
-
-> `spawn-process.exs` e `process-communication.exs` — exemplos introdutórios de spawn e troca de mensagens.
 
 ### 05 - GenServer
 
