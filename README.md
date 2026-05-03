@@ -1,6 +1,6 @@
 # Elixir Learning Path — Udemy Courses
 
-This repository contains projects developed across two Udemy courses focused on the Elixir programming language and its ecosystem. The material progresses from language fundamentals through building complete web applications with the Phoenix framework.
+This repository contains projects and exercises developed across three Udemy courses focused on the Elixir programming language and its ecosystem. The material progresses from language fundamentals through OTP, Phoenix web development, and advanced topics such as metaprogramming and distribution.
 
 ## Repository Structure
 
@@ -11,10 +11,20 @@ course-udemy-elixir/
 │   ├── section02-ex-mon/          # OTP Agents, game state, structs
 │   ├── section03-example-phoenix/ # Minimal Phoenix API with Ecto
 │   └── section04-test-bank/       # Full banking API with auth and tests
-└── Course-02/          # Functional patterns and Phoenix LiveView
-    ├── 01-cards/        # Functional list operations and file I/O
-    ├── 02-indenticon/   # Image generation pipeline
-    └── discuss/         # Phoenix LiveView forum application
+├── Course-02/          # Functional patterns and Phoenix LiveView
+│   ├── 01-cards/        # Functional list operations and file I/O
+│   ├── 02-indenticon/   # Image generation pipeline
+│   └── 03-discuss/      # Phoenix LiveView forum application
+└── Course-03/          # Deep dive: OTP, processes, and advanced Elixir
+    ├── 01-basics/               # Built-in types, modules, functions, lambdas
+    ├── 02-iterations/           # Recursion, Enum, Stream, comprehensions
+    ├── 03-control-flow/         # Conditionals and exceptions
+    ├── 04-processes/            # Spawn, message passing, links and monitors
+    ├── 05-genserver/            # GenServer behaviour and OTP patterns
+    ├── 06-mix-tool/             # Mix projects, deps and tasks
+    ├── 07-fault-tolerance/      # Supervisors and fault tolerance
+    ├── 08-distribution-tasks-agents/ # Distribution, Task and Agent
+    └── 09-metaprogramming/      # Macros and metaprogramming
 ```
 
 ## Courses
@@ -30,7 +40,7 @@ Covers the Elixir language from scratch, including functional programming concep
 | 03 | ExamplePhoenix | Phoenix framework, Ecto, JSON API |
 | 04 | TestBank | CRUD, authentication, external HTTP, Ecto constraints |
 
-### Course 02 — Elixir for Beginners (Stephen Grider)
+### Course 02 — Elixir for Beginners
 
 Introduces functional programming patterns through small focused projects, culminating in a full Phoenix LiveView application.
 
@@ -40,6 +50,22 @@ Introduces functional programming patterns through small focused projects, culmi
 | Identicon | Pipeline architecture, MD5 hashing, image rendering |
 | Discuss | Phoenix, LiveView, Ecto, PostgreSQL |
 
+### Course 03 — Elixir Deep Dive
+
+Covers the language and OTP in depth through isolated exercises, progressing from built-in types to distributed systems and metaprogramming.
+
+| Section | Concepts |
+|---|---|
+| 01 — Basics | Built-in data types, modules, functions, arity, guards, lambdas |
+| 02 — Iterations | Recursion, tail-call optimisation, Enum, Stream, comprehensions |
+| 03 — Control Flow | `if`/`unless`/`case`/`cond`, exceptions with `try/rescue` |
+| 04 — Processes | Spawn, message passing, links, monitors, stateful process server |
+| 05 — GenServer | `init`, `handle_call`, `handle_cast`, init validation |
+| 06 — Mix Tool | Mix projects, dependencies, custom tasks |
+| 07 — Fault Tolerance | Supervisors, supervision trees |
+| 08 — Distribution, Tasks and Agents | Distributed nodes, `Task`, `Agent` |
+| 09 — Metaprogramming | Macros, `quote`/`unquote`, compile-time code generation |
+
 ## Key Technologies
 
 - **Elixir** — functional, concurrent language built on the Erlang VM
@@ -47,7 +73,7 @@ Introduces functional programming patterns through small focused projects, culmi
 - **Ecto** — database wrapper and query language
 - **PostgreSQL** — relational database
 - **LiveView** — server-side reactive UI
-- **OTP** — Agent, Supervisor, Application behaviours
+- **OTP** — GenServer, Agent, Supervisor, Application behaviours
 
 ## Running a Project
 
