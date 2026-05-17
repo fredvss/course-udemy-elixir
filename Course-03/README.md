@@ -52,14 +52,14 @@ Processos, comunicação e tolerância a falhas em Elixir.
 
 ### 05 - GenServer
 
-Comportamento `GenServer` da OTP.
+Comportamento `GenServer` da OTP. Veja [05-genserver/README.md](05-genserver/README.md) para uma referência completa dos callbacks e exemplos de uso.
 
-| Pasta | Conteúdo |
-|-------|----------|
-| `genserver-intro` | Introdução ao `GenServer` com o callback `init/1` |
-| `genserver-calculator` | Calculadora stateful com `handle_call` e `handle_cast` |
-| `genserver-init-validation` | Validação de estado inicial no `init/1` com guards |
-| `game-of-stones` | Game of Stones implementado com `GenServer` |
+| Pasta | Conteúdo | Callbacks |
+|-------|----------|-----------|
+| `genserver-intro` | Primeiro GenServer, estado inicial | `init/1` |
+| `genserver-init-validation` | Validação do estado inicial com guards | `init/1` |
+| `genserver-calculator` | Calculadora stateful | `init/1`, `handle_call/3`, `handle_cast/2`, `terminate/2` |
+| `game-of-stones` | Jogo interativo com cliente e servidor | `init/1`, `handle_call/3`, `terminate/2` |
 
 ### 06 - Mix Tool
 
