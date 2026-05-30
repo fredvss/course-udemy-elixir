@@ -1,9 +1,11 @@
 defmodule Calculator do
   use GenServer
 
+  @process_name __MODULE__
+
   # Starts the GenServer
   def start(initial_state) do
-    GenServer.start(__MODULE__, initial_state, name: __MODULE__)
+    GenServer.start(@process_name, initial_state, name: @process_name)
   end
 
   def init(initial_state) when is_number(initial_state) do
@@ -17,19 +19,19 @@ defmodule Calculator do
 
   # Public API
   def add(number) do
-    GenServer.cast(__MODULE__, {:add, number})
+    GenServer.cast(@process_name, {:add, number})
   end
 
   def sub(number) do
-    GenServer.cast(__MODULE__, {:sub, number})
+    GenServer.cast(@process_name, {:sub, number})
   end
 
   def sqrt do
-    GenServer.cast(__MODULE__, :sqrt)
+    GenServer.cast(@process_name, :sqrt)
   end
 
   def result do
-    GenServer.call(__MODULE__, :result, 5000)
+    GenServer.call(@process_name, :result, 5000)
   end
 
   # Synchronous request
@@ -56,7 +58,7 @@ defmodule Calculator do
 end
 
 
-{:ok, _pid} = Calculator.start(4)
+Calculator.start(4) |> IO.inspect
 
 Calculator.add(10)
 Calculator.result |> IO.inspect

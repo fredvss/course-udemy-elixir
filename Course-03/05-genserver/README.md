@@ -2,19 +2,99 @@
 
 `GenServer` (Generic Server) é um comportamento OTP que padroniza a implementação de processos stateful em Elixir. Ele abstrai o loop de mensagens e o gerenciamento de estado, deixando o desenvolvedor focado apenas na lógica de negócio.
 
+## Funções de inicialização
+
+### `GenServer.start/3` vs `GenServer.start_link/3`
+
+Ambas iniciam um processo GenServer chamando `init/1`, mas diferem no **comportamento de falha**:
+
+| Função | Vincula ao processo chamador? | Uso típico |
+|--------|------------------------------|------------|
+| `GenServer.start_link/3` | Sim — se um morrer, o outro também morre | Dentro de um Supervisor |
+| `GenServer.start/3` | Não — processos independentes | Scripts, testes, processos sem supervisão |
+
+**Assinatura:**
+
+```elixir
+GenServer.start(module, args, opts \\ [])
+GenServer.start_link(module, args, opts \\ [])
+```
+
+**Retornos possíveis:**
+
+| Retorno | Significado |
+|---------|-------------|
+| `{:ok, pid}` | Iniciado com sucesso |
+| `{:error, {:already_started, pid}}` | Já existe um processo com o nome registrado |
+| `{:error, reason}` | `init/1` retornou `{:stop, reason}` ou lançou exceção |
+
+**Opções comuns (`opts`):**
+
+| Opção | Descrição |
+|-------|-----------|
+| `name: MyModule` | Registra o processo com um nome (atom) |
+| `name: {:global, name}` | Registro global (cluster) |
+| `timeout: 5000` | Tempo máximo para `init/1` completar (ms) |
+| `debug: [:trace]` | Ativa tracing via `:sys` |
+
+```elixir
+# Sem nome — usa o PID retornado
+{:ok, pid} = GenServer.start(MyServer, :initial_state)
+
+# Com nome registrado — pode usar o atom como referência
+{:ok, _pid} = GenServer.start(MyServer, :initial_state, name: MyServer)
+GenServer.call(MyServer, :get)
+
+# start_link — processo filho morre junto com o pai
+{:ok, pid} = GenServer.start_link(MyServer, :initial_state, name: MyServer)
+```
+
+> **Regra prática:** use `start_link/3` quando o GenServer for gerenciado por um Supervisor. Use `start/3` para processos temporários ou em scripts/testes.
+
+---
+
 ## Como funciona
 
 Um `GenServer` roda em um processo separado. O estado é mantido pelo próprio processo e só é acessado através das funções de interface (call/cast/info). Toda comunicação é via troca de mensagens.
+
+### Inicialização
+
+Ao chamar `GenServer.start/3` ou `GenServer.start_link/3`, o runtime Elixir cria um novo processo e chama `init/1` nele. O processo só fica disponível após `init/1` retornar `{:ok, state}`.
+
+```
+Processo chamador               GenServer Process
+  |                                   |
+  |-- GenServer.start(M, args) -----> | (novo processo criado)
+  |                                   | M.init(args)
+  |<-- {:ok, pid} ------------------|   {:ok, initial_state}
+  |                                   |
+  |   (bloqueado até init retornar)   | aguardando mensagens...
+```
+
+A diferença entre as duas funções de início:
+
+```
+GenServer.start/3      →  processos independentes (sem link)
+GenServer.start_link/3 →  linked: se um morrer, o outro também morre
+```
+
+### Ciclo de mensagens
+
+Após iniciado, o processo entra em loop aguardando mensagens:
 
 ```
 Client                          GenServer Process
   |                                   |
   |-- GenServer.call(:get) ---------> |
-  |                                   | handle_call(:get, from, state)
-  |<-- {:reply, value, state} -------|
+  |   (bloqueado)                     | handle_call(:get, from, state)
+  |<-- {:reply, value, new_state} ---|
   |                                   |
   |-- GenServer.cast(:update) ------> |
   |                                   | handle_cast(:update, state)
+  |   (sem resposta)                  | {:noreply, new_state}
+  |                                   |
+  |   send(pid, :any_msg)  ---------> |
+  |                                   | handle_info(:any_msg, state)
   |   (sem resposta)                  | {:noreply, new_state}
 ```
 

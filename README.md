@@ -1,100 +1,107 @@
-# Elixir Learning Path — Udemy Courses
+# Elixir Learning Path — Cursos Udemy
 
-This repository contains projects and exercises developed across three Udemy courses focused on the Elixir programming language and its ecosystem. The material progresses from language fundamentals through OTP, Phoenix web development, and advanced topics such as metaprogramming and distribution.
+Repositório com projetos e exercícios desenvolvidos ao longo de três cursos Udemy focados em Elixir e seu ecossistema. O conteúdo evolui dos fundamentos da linguagem até OTP, desenvolvimento web com Phoenix e tópicos avançados como metaprogramação e distribuição.
 
-## Repository Structure
+## Estrutura
 
 ```
 course-udemy-elixir/
-├── Course-01/          # Elixir + Phoenix fundamentals (Bootcamp-style)
-│   ├── section01-fizz-buzz/       # Elixir core: pattern matching, I/O
-│   ├── section02-ex-mon/          # OTP Agents, game state, structs
-│   ├── section03-example-phoenix/ # Minimal Phoenix API with Ecto
-│   └── section04-test-bank/       # Full banking API with auth and tests
-├── Course-02/          # Functional patterns and Phoenix LiveView
-│   ├── 01-cards/        # Functional list operations and file I/O
-│   ├── 02-indenticon/   # Image generation pipeline
-│   └── 03-discuss/      # Phoenix LiveView forum application
-└── Course-03/          # Deep dive: OTP, processes, and advanced Elixir
-    ├── 01-basics/               # Built-in types, modules, functions, lambdas
-    ├── 02-iterations/           # Recursion, Enum, Stream, comprehensions
-    ├── 03-control-flow/         # Conditionals and exceptions
-    ├── 04-processes/            # Spawn, message passing, links and monitors
-    ├── 05-genserver/            # GenServer behaviour and OTP patterns
-    ├── 06-mix-tool/             # Mix projects, deps and tasks
-    ├── 07-fault-tolerance/      # Supervisors and fault tolerance
-    ├── 08-distribution-tasks-agents/ # Distribution, Task and Agent
-    └── 09-metaprogramming/      # Macros and metaprogramming
+├── Course-01/          # Fundamentos de Elixir + Phoenix (estilo bootcamp)
+│   ├── section01-fizz-buzz/       # Core do Elixir: pattern matching, I/O
+│   ├── section02-ex-mon/          # OTP Agents, estado de jogo, structs
+│   ├── section03-example-phoenix/ # API mínima com Phoenix e Ecto
+│   └── section04-test-bank/       # API bancária completa com auth e testes
+├── Course-02/          # Padrões funcionais e Phoenix LiveView  ⚠️ em andamento
+│   ├── 01-cards/        # Operações funcionais em listas e I/O de arquivos
+│   ├── 02-indenticon/   # Pipeline de geração de imagens
+│   └── 03-discuss/      # Fórum com Phoenix LiveView
+└── Course-03/          # Aprofundamento: OTP, processos e Elixir avançado
+    ├── 01-basics/               # Tipos, módulos, funções, lambdas
+    ├── 02-iterations/           # Recursão, Enum, Stream, comprehensions
+    ├── 03-control-flow/         # Condicionais e exceções
+    ├── 04-processes/            # Spawn, troca de mensagens, links e monitors
+    ├── 05-genserver/            # Behaviour GenServer e padrões OTP
+    ├── 06-mix-tool/             # Projetos Mix, deps, escript e tarefas
+    ├── 07-fault-tolerance/      # Supervisors e tolerância a falhas
+    ├── 08-distribution-tasks-agents/ # Nós distribuídos, Task e Agent
+    └── 09-metaprogramming/      # Macros, quote/unquote, geração de código
 ```
 
-## Courses
+## Cursos
 
 ### Course 01 — Elixir and Phoenix Bootcamp
 
-Covers the Elixir language from scratch, including functional programming concepts, OTP primitives, and progressive Phoenix web development.
+Cobre o Elixir do zero, incluindo programação funcional, primitivos OTP e desenvolvimento web progressivo com Phoenix.
 
-| Section | Project | Concepts |
+| Seção | Projeto | Conceitos |
 |---|---|---|
-| 01 | FizzBuzz | Pattern matching, guards, pipe operator, file I/O |
-| 02 | ExMon | Agents, structs, game state, modular design |
-| 03 | ExamplePhoenix | Phoenix framework, Ecto, JSON API |
-| 04 | TestBank | CRUD, authentication, external HTTP, Ecto constraints |
+| 01 | FizzBuzz | Pattern matching, guards, pipe operator, I/O de arquivos |
+| 02 | ExMon | Agents, structs, estado de jogo, design modular |
+| 03 | ExamplePhoenix | Phoenix, Ecto, JSON API |
+| 04 | TestBank | CRUD, autenticação, HTTP externo, constraints com Ecto |
 
-### Course 02 — Elixir for Beginners
+### Course 02 — Elixir for Beginners ⚠️ em andamento
 
-Introduces functional programming patterns through small focused projects, culminating in a full Phoenix LiveView application.
+Apresenta padrões de programação funcional por meio de projetos pequenos e focados, culminando em uma aplicação completa com Phoenix LiveView.
 
-| Project | Concepts |
+| Projeto | Conceitos |
 |---|---|
-| Cards | Enum, pipe composition, Erlang term I/O |
-| Identicon | Pipeline architecture, MD5 hashing, image rendering |
+| Cards | Enum, composição com pipe, I/O de termos Erlang |
+| Identicon | Arquitetura de pipeline, hash MD5, renderização de imagem |
 | Discuss | Phoenix, LiveView, Ecto, PostgreSQL |
 
 ### Course 03 — Elixir Deep Dive
 
-Covers the language and OTP in depth through isolated exercises, progressing from built-in types to distributed systems and metaprogramming.
+Cobre a linguagem e OTP em profundidade por meio de exercícios isolados, progredindo de tipos nativos até sistemas distribuídos e metaprogramação.
 
-| Section | Concepts |
+| Seção | Conceitos |
 |---|---|
-| 01 — Basics | Built-in data types, modules, functions, arity, guards, lambdas |
-| 02 — Iterations | Recursion, tail-call optimisation, Enum, Stream, comprehensions |
-| 03 — Control Flow | `if`/`unless`/`case`/`cond`, exceptions with `try/rescue` |
-| 04 — Processes | Spawn, message passing, links, monitors, stateful process server |
-| 05 — GenServer | `init`, `handle_call`, `handle_cast`, init validation |
-| 06 — Mix Tool | Mix projects, dependencies, custom tasks |
-| 07 — Fault Tolerance | Supervisors, supervision trees |
-| 08 — Distribution, Tasks and Agents | Distributed nodes, `Task`, `Agent` |
-| 09 — Metaprogramming | Macros, `quote`/`unquote`, compile-time code generation |
+| 01 — Basics | Tipos nativos, módulos, funções, aridade, guards, lambdas |
+| 02 — Iterations | Recursão, tail-call optimisation, Enum, Stream, comprehensions |
+| 03 — Control Flow | `if`/`unless`/`case`/`cond`, exceções com `try/rescue` |
+| 04 — Processes | Spawn, troca de mensagens, links, monitors, process server stateful |
+| 05 — GenServer | `init`, `handle_call`, `handle_cast`, validação no init |
+| 06 — Mix Tool | Projetos Mix, dependências externas, escript, tarefas customizadas |
+| 07 — Fault Tolerance | Supervisors, árvores de supervisão |
+| 08 — Distribution, Tasks e Agents | Nós distribuídos, `Task`, `Agent` |
+| 09 — Metaprogramming | Macros, `quote`/`unquote`, geração de código em compile-time |
 
-## Key Technologies
+## Tecnologias principais
 
-- **Elixir** — functional, concurrent language built on the Erlang VM
-- **Phoenix** — web framework for Elixir (v1.8.x)
-- **Ecto** — database wrapper and query language
-- **PostgreSQL** — relational database
-- **LiveView** — server-side reactive UI
-- **OTP** — GenServer, Agent, Supervisor, Application behaviours
+- **Elixir** — linguagem funcional e concorrente sobre a VM Erlang
+- **Phoenix** — framework web para Elixir (v1.8.x)
+- **Ecto** — wrapper de banco de dados e linguagem de queries
+- **PostgreSQL** — banco de dados relacional
+- **LiveView** — UI reativa server-side
+- **OTP** — behaviours GenServer, Agent, Supervisor, Application
 
-## Running a Project
+## Rodando um projeto
 
-Each sub-project is a standalone Mix application. To get started with any of them:
+Cada sub-projeto é uma aplicação Mix standalone. Para iniciar qualquer um:
 
 ```bash
-cd Course-01/section04-test-bank   # or any project directory
+cd Course-01/section04-test-bank   # ou qualquer diretório de projeto
 mix deps.get
-mix ecto.setup                     # only for database projects
-mix phx.server                     # only for Phoenix projects
+mix ecto.setup                     # apenas para projetos com banco de dados
+mix phx.server                     # apenas para projetos Phoenix
 ```
 
-For non-web projects:
+Para projetos sem web:
 
 ```bash
 iex -S mix
 ```
 
-## Prerequisites
+Para escripts (ex: `Course-03/06-mix-tool/game_of_stones`):
+
+```bash
+mix escript.build
+./game_of_stones
+```
+
+## Pré-requisitos
 
 - Elixir >= 1.14
 - Erlang/OTP >= 25
-- PostgreSQL >= 14 (required by sections 03, 04 and discuss)
-- Docker (optional, for section04 via `docker-compose up`)
+- PostgreSQL >= 14 (necessário nas seções 03, 04 e discuss)
+- Docker (opcional, para section04 via `docker-compose up`)
