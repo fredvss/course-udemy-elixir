@@ -24,7 +24,8 @@ course-udemy-elixir/
     ├── 06-mix-tool/             # Projetos Mix, deps, escript e tarefas
     ├── 07-fault-tolerance/      # Supervisors e tolerância a falhas
     ├── 08-distribution-tasks-agents/ # Nós distribuídos, Task e Agent
-    └── 09-metaprogramming/      # Macros, quote/unquote, geração de código
+    ├── 09-metaprogramming/      # Macros, quote/unquote, geração de código
+    └── 10-behaviour/            # @behaviour, @callback, polimorfismo via módulo
 ```
 
 ## Cursos
@@ -64,7 +65,8 @@ Cobre a linguagem e OTP em profundidade por meio de exercícios isolados, progre
 | 06 — Mix Tool | Projetos Mix, dependências externas, escript, tarefas customizadas |
 | 07 — Fault Tolerance | Supervisors, árvores de supervisão |
 | 08 — Distribution, Tasks e Agents | Nós distribuídos, `Task`, `Agent` |
-| 09 — Metaprogramming | Macros, `quote`/`unquote`, geração de código em compile-time |
+| 09 — Metaprogramming | `quote`/`unquote`, `defmacro`, `require`/`import`/`use`, `defprotocol`, `defimpl` |
+| 10 — Behaviour | `@behaviour`, `@callback`, `@optional_callbacks`, `@impl`, polimorfismo via módulo |
 
 ## Tecnologias principais
 

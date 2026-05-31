@@ -102,4 +102,21 @@ Conceitos abordados: `Task.async/await`, `Task.async_stream`, `Task.Supervisor`,
 
 Macros e metaprogramação: manipulação da AST em tempo de compilação.
 
-Conceitos abordados: AST (`quote`/`unquote`), `defmacro`, `__using__/1`, `use`, hooks de compilação (`__before_compile__`), atributos de módulo como metadados e boas práticas.
+| Arquivo | Conteúdo |
+|---------|----------|
+| [`require_import_use.exs`](09-metaprogramming/require_import_use.exs) | `require`, `import`, `use` e `__using__/1` |
+| [`quote_unquote.exs`](09-metaprogramming/quote_unquote.exs) | AST, `quote`, `unquote`, `Code.eval_quoted`, `Macro.to_string`, `Macro.escape` |
+| [`macros.exs`](09-metaprogramming/macros.exs) | 6 passos progressivos de `defmacro`: básico, argumentos, AST em compilação, `Dbg.inspect`, `Timed.run`, geração com `for` |
+| [`protocol.exs`](09-metaprogramming/protocol.exs) | Polimorfismo por tipo com `defprotocol`, `defimpl` e `@fallback_to_any` |
+
+Conceitos abordados: `quote`/`unquote`, `defmacro`, `require`/`import`/`use`, `__using__/1`, `Macro.to_string`, `Code.eval_quoted`, `defprotocol`, `defimpl`, `@fallback_to_any`.
+
+### [10 - Behaviour](10-behaviour/)
+
+Contratos entre módulos com `@behaviour` e `@callback`.
+
+| Arquivo | Conteúdo |
+|---------|----------|
+| [`behaviour.exs`](10-behaviour/behaviour.exs) | `@callback`, `@optional_callbacks`, `@impl`, polimorfismo via módulo e `GenServer` como exemplo real |
+
+Conceitos abordados: `@behaviour`, `@callback`, `@optional_callbacks`, `@impl`, polimorfismo via módulo como parâmetro, diferença entre `Behaviour` e `Protocol`.
