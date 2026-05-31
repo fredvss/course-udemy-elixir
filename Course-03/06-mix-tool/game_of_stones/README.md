@@ -2,7 +2,7 @@
 
 Versão do Game of Stones como projeto Mix completo, com escript (executável) e terminal colorido via biblioteca externa [`bunt`](https://hex.pm/packages/bunt).
 
-## Scaffold `mix new`
+## Mix new
 
 O comando `mix new <app>` gera automaticamente:
 
@@ -78,7 +78,15 @@ O escript é um executável portável: basta ter o Erlang instalado na máquina 
 
 ## Escript — como funciona
 
-O `mix.exs` define `escript: [main_module: GameOfStones]`. O Mix compila todos os módulos do projeto (e suas deps) em um único arquivo binário executável. O ponto de entrada é `GameOfStones.main/1`, que recebe os argumentos de linha de comando como lista de strings.
+O `mix.exs` define `escript: [main_module: GameOfStones]`. O Mix compila todos os módulos do projeto (e suas deps) em um único arquivo binário executável. O ponto de entrada é `GameOfStones.main/1`, que recebe os argumentos de linha de comando como **lista de strings**.
+
+| Comando | `args` recebido |
+|---|---|
+| `./game_of_stones` | `[]` |
+| `./game_of_stones 10` | `["10"]` |
+| `./game_of_stones 10 foo` | `["10", "foo"]` |
+
+Por isso o `parse_args/1` converte a string para inteiro — tudo chega como texto.
 
 ```elixir
 # lib/game_of_stones.ex

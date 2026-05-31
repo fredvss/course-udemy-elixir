@@ -63,16 +63,33 @@ Comportamento `GenServer` da OTP. Veja [05-genserver/README.md](05-genserver/REA
 
 ### 06 - Mix Tool
 
-Ferramenta `mix`: projetos, dependências e tarefas.
+Ferramenta `mix`: projetos, dependências, testes e escripts.
+
+| Pasta | Conteúdo |
+|-------|----------|
+| `game_of_stones/` | Game of Stones como projeto Mix completo com escript e terminal colorido via `bunt` |
+
+Conceitos abordados: `mix new`, `mix.exs`, gerenciamento de dependências (`mix deps.get`), operadores de versão SemVer, tarefas comuns, geração de escript e testes com ExUnit.
 
 ### 07 - Fault Tolerance
 
-Supervisores e tolerância a falhas com OTP.
+Tolerância a falhas com OTP: supervisores, estratégias de reinício e persistência de estado com ETS.
+
+| Pasta | Conteúdo |
+|-------|----------|
+| `game_of_stones_supervised/` | Game of Stones com Supervisor: Server reinicia automaticamente ao falhar |
+| `game_of_stones_ets/` | Evolução com ETS: estado do jogo sobrevive ao reinício do Server |
+
+Conceitos abordados: `Application` behaviour, `Supervisor.start_link/2`, estratégias `:one_for_one` / `:one_for_all` / `:rest_for_one`, child spec, `start_link` vs `start`, e ETS (Erlang Term Storage).
 
 ### 08 - Distribution, Tasks and Agents
 
-Distribuição, `Task` e `Agent`.
+Distribuição entre nós, execução concorrente com `Task` e estado simplificado com `Agent`.
+
+Conceitos abordados: `Task.async/await`, `Task.async_stream`, `Task.Supervisor`, `Agent.start_link/get/update`, distribuição com `Node.connect/spawn`, cookies e nomes de nó.
 
 ### 09 - Metaprogramming
 
-Macros e metaprogramação.
+Macros e metaprogramação: manipulação da AST em tempo de compilação.
+
+Conceitos abordados: AST (`quote`/`unquote`), `defmacro`, `__using__/1`, `use`, hooks de compilação (`__before_compile__`), atributos de módulo como metadados e boas práticas.
