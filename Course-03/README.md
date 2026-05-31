@@ -4,7 +4,7 @@ Curso de Elixir cobrindo fundamentos, iteração, controle de fluxo, processos e
 
 ## Estrutura
 
-### [01 - Basics](01-basics/README.md)
+### [01 - Basics](01-basics/)
 
 Fundamentos da linguagem Elixir.
 
@@ -17,7 +17,7 @@ Fundamentos da linguagem Elixir.
 
 Conceitos abordados: atoms, booleans, números, strings, listas, mapas, tuplas, keyword lists, módulos, funções nomeadas, aridade, guards, cláusulas e funções anônimas.
 
-### [02 - Iterations](02-iterations/README.md)
+### [02 - Iterations](02-iterations/)
 
 Iteração e processamento de coleções em Elixir.
 
@@ -33,7 +33,7 @@ Iteração e processamento de coleções em Elixir.
 
 Conceitos abordados: recursão, tail-call optimisation (TCO) com acumulador, `Enum`, `Stream`, lazy evaluation, `File.stream!` e compreensões com `for`.
 
-### [03 - Control Flow](03-control-flow/README.md)
+### [03 - Control Flow](03-control-flow/)
 
 Controle de fluxo e tratamento de erros em Elixir.
 
@@ -44,7 +44,7 @@ Controle de fluxo e tratamento de erros em Elixir.
 
 Conceitos abordados: `if`, `unless`, `case`, `cond`, `raise`, `try/rescue`, `throw` e `exit`.
 
-### [04 - Processes](04-processes/README.md)
+### [04 - Processes](04-processes/)
 
 Processos, comunicação e tolerância a falhas em Elixir.
 
@@ -58,7 +58,7 @@ Processos, comunicação e tolerância a falhas em Elixir.
 
 Conceitos abordados: `spawn`, `send`/`receive`, mailbox, `spawn_link`, `spawn_monitor`, processos stateful com loop recursivo.
 
-### [05 - GenServer](05-genserver/README.md)
+### [05 - GenServer](05-genserver/)
 
 Comportamento `GenServer` da OTP.
 
@@ -71,7 +71,7 @@ Comportamento `GenServer` da OTP.
 
 Conceitos abordados: `GenServer.start/3` vs `start_link/3`, `init/1`, `handle_call/3`, `handle_cast/2`, `terminate/2`, registro de nome e validação no init.
 
-### [06 - Mix Tool](06-mix-tool/README.md)
+### [06 - Mix Tool](06-mix-tool/)
 
 Ferramenta `mix`: projetos, dependências, testes e escripts.
 
@@ -81,7 +81,7 @@ Ferramenta `mix`: projetos, dependências, testes e escripts.
 
 Conceitos abordados: `mix new`, `mix.exs`, gerenciamento de dependências (`mix deps.get`), operadores de versão SemVer, tarefas comuns, geração de escript e testes com ExUnit.
 
-### [07 - Fault Tolerance](07-fault-tolerance/README.md)
+### [07 - Fault Tolerance](07-fault-tolerance/)
 
 Tolerância a falhas com OTP: supervisores, estratégias de reinício e persistência de estado com ETS.
 
@@ -92,13 +92,13 @@ Tolerância a falhas com OTP: supervisores, estratégias de reinício e persist�
 
 Conceitos abordados: `Application` behaviour, `Supervisor.start_link/2`, estratégias `:one_for_one` / `:one_for_all` / `:rest_for_one`, child spec, `start_link` vs `start`, e ETS (Erlang Term Storage).
 
-### [08 - Distribution, Tasks and Agents](08-distribution-tasks-agents/README.md)
+### [08 - Distribution, Tasks and Agents](08-distribution-tasks-agents/)
 
 Distribuição entre nós, execução concorrente com `Task` e estado simplificado com `Agent`.
 
 Conceitos abordados: `Task.async/await`, `Task.async_stream`, `Task.Supervisor`, `Agent.start_link/get/update`, distribuição com `Node.connect/spawn`, cookies e nomes de nó.
 
-### [09 - Metaprogramming](09-metaprogramming/README.md)
+### [09 - Metaprogramming](09-metaprogramming/)
 
 Macros e metaprogramação: manipulação da AST em tempo de compilação.
 

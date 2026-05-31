@@ -7,10 +7,10 @@ Repositório com projetos e exercícios desenvolvidos ao longo de três cursos U
 ```
 course-udemy-elixir/
 ├── Course-01/          # Fundamentos de Elixir + Phoenix (estilo bootcamp)
-│   ├── section01-fizz-buzz/       # Core do Elixir: pattern matching, I/O
-│   ├── section02-ex-mon/          # OTP Agents, estado de jogo, structs
-│   ├── section03-example-phoenix/ # API mínima com Phoenix e Ecto
-│   └── section04-test-bank/       # API bancária completa com auth e testes
+│   ├── 01-fizz-buzz/              # Core do Elixir: pattern matching, I/O
+│   ├── 02-ex-mon/                 # OTP Agents, estado de jogo, structs
+│   ├── 03-example-phoenix/        # API mínima com Phoenix e Ecto
+│   └── 04-test-bank/              # API bancária completa com auth e testes
 ├── Course-02/          # Padrões funcionais e Phoenix LiveView  ⚠️ em andamento
 │   ├── 01-cards/        # Operações funcionais em listas e I/O de arquivos
 │   ├── 02-indenticon/   # Pipeline de geração de imagens
@@ -29,7 +29,7 @@ course-udemy-elixir/
 
 ## Cursos
 
-### [Course 01 — Elixir and Phoenix Bootcamp](Course-01/README.md)
+### [Course 01 — Elixir and Phoenix Bootcamp](Course-01/)
 
 Cobre o Elixir do zero, incluindo programação funcional, primitivos OTP e desenvolvimento web progressivo com Phoenix.
 
@@ -40,7 +40,7 @@ Cobre o Elixir do zero, incluindo programação funcional, primitivos OTP e dese
 | 03 | ExamplePhoenix | Phoenix, Ecto, JSON API |
 | 04 | TestBank | CRUD, autenticação, HTTP externo, constraints com Ecto |
 
-### [Course 02 — Elixir for Beginners](Course-02/README.md) ⚠️ em andamento
+### [Course 02 — Elixir for Beginners](Course-02/) ⚠️ em andamento
 
 Apresenta padrões de programação funcional por meio de projetos pequenos e focados, culminando em uma aplicação completa com Phoenix LiveView.
 
@@ -50,7 +50,7 @@ Apresenta padrões de programação funcional por meio de projetos pequenos e fo
 | Identicon | Arquitetura de pipeline, hash MD5, renderização de imagem |
 | Discuss | Phoenix, LiveView, Ecto, PostgreSQL |
 
-### [Course 03 — Elixir Deep Dive](Course-03/README.md)
+### [Course 03 — Elixir Deep Dive](Course-03/)
 
 Cobre a linguagem e OTP em profundidade por meio de exercícios isolados, progredindo de tipos nativos até sistemas distribuídos e metaprogramação.
 

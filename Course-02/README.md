@@ -4,19 +4,19 @@ Três projetos focados que introduzem padrões de programação funcional em Eli
 
 ## Projetos
 
-### [01 — Cards](01-cards/README.md)
+### [01 — Cards](01-cards/)
 
 Biblioteca de manipulação de baralho sem dependências externas. Cobre transformações funcionais puras, compreensões de lista, serialização binária Erlang e documentação com ExDoc.
 
 Conceitos abordados: compreensões de lista (`for`), pipe operator `|>`, pattern matching em resultados de arquivo, serialização com `:erlang.term_to_binary`, `ExDoc` com `@doc`.
 
-### [02 — Identicon](02-indenticon/README.md)
+### [02 — Identicon](02-indenticon/)
 
 Gerador de identicons que converte texto em uma imagem PNG 250×250 determinística. Cobre arquitetura de pipeline com struct acumulador, hash MD5 via `:crypto` e renderização de imagem via `:egd`.
 
 Conceitos abordados: arquitetura de pipeline com `|>` e struct acumulador, interop com Erlang (`:crypto`, `:egd`), `Enum.chunk_every/2`, funções de hash determinísticas.
 
-### [03 — Discuss](03-discuss/README.md)
+### [03 — Discuss](03-discuss/)
 
 Fórum de discussões web com Phoenix 1.8 e LiveView. Demonstra uma aplicação Phoenix completa com gerenciamento de sessão, proteção CSRF, persistência via Ecto/PostgreSQL, LiveView para UIs reativas e internacionalização com Gettext.
 
