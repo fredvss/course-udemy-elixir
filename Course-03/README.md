@@ -50,11 +50,11 @@ Processos, comunicação e tolerância a falhas em Elixir.
 
 | Pasta | Conteúdo |
 |-------|----------|
-| `spawning-processes` | Spawn de múltiplos processos concorrentes |
-| `message-passing` | Comunicação entre processos: envio simples e coleta de respostas |
-| `links-and-monitors` | Tratamento de falhas com `spawn_link` e `spawn_monitor` |
-| `game-of-stones-server` | Servidor de estado para o jogo Game of Stones usando processos puros |
-| `game-of-stones-complete` | Versão completa do jogo com cliente e servidor |
+| `01-spawning-processes` | Spawn de múltiplos processos concorrentes |
+| `02-message-passing` | Comunicação entre processos: envio simples e coleta de respostas |
+| `03-links-and-monitors` | Tratamento de falhas com `spawn_link` e `spawn_monitor` |
+| `04-game-of-stones-server` | Servidor de estado para o jogo Game of Stones usando processos puros |
+| `05-game-of-stones-complete` | Versão completa do jogo com cliente e servidor |
 
 Conceitos abordados: `spawn`, `send`/`receive`, mailbox, `spawn_link`, `spawn_monitor`, processos stateful com loop recursivo.
 
@@ -64,10 +64,10 @@ Comportamento `GenServer` da OTP.
 
 | Pasta | Conteúdo | Callbacks |
 |-------|----------|-----------|
-| `genserver-intro` | Primeiro GenServer, estado inicial | `init/1` |
-| `genserver-init-validation` | Validação do estado inicial com guards | `init/1` |
-| `genserver-calculator` | Calculadora stateful | `init/1`, `handle_call/3`, `handle_cast/2`, `terminate/2` |
-| `game-of-stones` | Jogo interativo com cliente e servidor | `init/1`, `handle_call/3`, `terminate/2` |
+| `01-genserver-intro` | Primeiro GenServer, estado inicial | `init/1` |
+| `02-genserver-init-validation` | Validação do estado inicial com guards | `init/1` |
+| `03-genserver-calculator` | Calculadora stateful | `init/1`, `handle_call/3`, `handle_cast/2`, `terminate/2` |
+| `04-game-of-stones` | Jogo interativo com cliente e servidor | `init/1`, `handle_call/3`, `terminate/2` |
 
 Conceitos abordados: `GenServer.start/3` vs `start_link/3`, `init/1`, `handle_call/3`, `handle_cast/2`, `terminate/2`, registro de nome e validação no init.
 
@@ -87,8 +87,8 @@ Tolerância a falhas com OTP: supervisores, estratégias de reinício e persist�
 
 | Pasta | Conteúdo |
 |-------|----------|
-| `game_of_stones_supervised/` | Game of Stones com Supervisor: Server reinicia automaticamente ao falhar |
-| `game_of_stones_ets/` | Evolução com ETS: estado do jogo sobrevive ao reinício do Server |
+| `01-game_of_stones_supervised/` | Game of Stones com Supervisor: Server reinicia automaticamente ao falhar |
+| `02-game_of_stones_ets/` | Evolução com ETS: estado do jogo sobrevive ao reinício do Server |
 
 Conceitos abordados: `Application` behaviour, `Supervisor.start_link/2`, estratégias `:one_for_one` / `:one_for_all` / `:rest_for_one`, child spec, `start_link` vs `start`, e ETS (Erlang Term Storage).
 
