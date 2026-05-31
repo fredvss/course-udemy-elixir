@@ -1,124 +1,286 @@
 # 09 - Metaprogramming
 
-Metaprogramação em Elixir é a capacidade de escrever código que gera ou transforma código. O Elixir expõe sua própria AST (Abstract Syntax Tree) como estruturas de dados Elixir, tornando macros de primeira classe na linguagem.
+Metaprogramação em Elixir é escrever **código que gera código** em tempo de compilação. O Elixir expõe sua própria AST como estruturas de dados nativas, tornando macros cidadãos de primeira classe na linguagem.
+
+## Arquivos
+
+| Arquivo | O que cobre |
+|---------|-------------|
+| `require_import_use.exs` | Os três mecanismos de importação de código: `require`, `import`, `use` |
+| `quote_unquote.exs` | Captura e manipulação da AST com `quote`, `unquote`, `Code.eval_quoted` |
+| `macros.exs` | 6 passos progressivos: `say_hello`, `greet`, `show_ast`, `Dbg.inspect`, `Timed.run`, geração com `for` |
+| `protocol.exs` | Polimorfismo por tipo com `defprotocol` e `defimpl` |
+
+## Como rodar
+
+```bash
+cd 09-metaprogramming
+
+elixir require_import_use.exs
+elixir quote_unquote.exs
+elixir macros.exs
+elixir protocol.exs
+```
+
+---
+
+## Pipeline de compilação
+
+```mermaid
+graph LR
+    S["Código fonte\n.ex / .exs"] -->|"parser"| A["AST\n{op, meta, args}"]
+    A -->|"expansão de macros"| A2["AST expandida"]
+    A2 -->|"compilador"| B["Bytecode BEAM\n.beam"]
+    B -->|"runtime"| R["Execução"]
+```
+
+> Macros atuam na etapa de **expansão** — transformam AST em outra AST antes de o compilador gerar bytecode. Funções normais não têm acesso a essa etapa.
+
+---
+
+## require, import e use
+
+### O que cada um faz
+
+```mermaid
+graph TB
+    subgraph require ["require — habilita macros"]
+        R1["require Integer"]
+        R2["Integer.is_odd(3)  ✓"]
+        R1 --> R2
+    end
+
+    subgraph import_blk ["import — traz para o namespace local"]
+        I1["import List, only: [flatten: 1]"]
+        I2["flatten([1,[2,3]])  ✓  (sem prefixo List.)"]
+        I1 --> I2
+    end
+
+    subgraph use_blk ["use — injeta código via __using__/1"]
+        U1["use Loggable, prefix: '[LOG]'"]
+        U2["def log/1 injetado no módulo"]
+        U3["def warn/1 injetado no módulo"]
+        U1 --> U2
+        U1 --> U3
+    end
+```
+
+| | `require` | `import` | `use` |
+|--|-----------|----------|-------|
+| O que faz | Carrega macros | Traz funções/macros sem prefixo | Injeta código via `__using__/1` |
+| Escopo | Módulo/função | Módulo/função | Módulo |
+| Poder | Baixo | Médio | Alto |
+| Exemplo stdlib | `require Integer` | `import Enum, only: [map: 2]` | `use GenServer` |
+
+### Como `use` funciona por baixo
+
+```mermaid
+sequenceDiagram
+    participant M as defmodule MyModule
+    participant C as Compilador
+    participant L as Loggable
+
+    M->>C: use Loggable, prefix: "[LOG]"
+    C->>L: require Loggable
+    C->>L: Loggable.__using__(prefix: "[LOG]")
+    L-->>C: AST com def log/1 e def warn/1
+    C->>M: injeta as funções no módulo
+```
+
+---
 
 ## AST — Abstract Syntax Tree
 
-Todo código Elixir pode ser representado como uma tupla `{função, metadados, argumentos}`:
+Todo código Elixir é uma tupla `{operador, metadados, argumentos}`:
 
 ```elixir
-# quote transforma código em AST
 quote do: 1 + 2
-# {:+, [context: Elixir, imports: [{1, Kernel}, {2, Kernel}]], [1, 2]}
+# {:+, [context: Elixir, imports: [{2, Kernel}]], [1, 2]}
+#   ^op   ^meta                                    ^args
 
-quote do: if true, do: "sim"
-# {:if, [...], [true, [do: "sim"]]}
+quote do: String.upcase("hello")
+# {{:., [], [{:__aliases__, [], [:String]}, :upcase]}, [], ["hello"]}
 ```
 
-### `quote` e `unquote`
+Literais são sua própria AST (números, strings, atoms, listas, tuplas de 2 elementos).
 
-```elixir
-# quote: captura código como AST sem executar
-ast = quote do: IO.puts("hello")
+### Fluxo de quote e unquote
 
-# unquote: injeta um valor dentro de um bloco quote
-x = 42
-ast = quote do: IO.puts(unquote(x))
-# equivale a: quote do: IO.puts(42)
+```mermaid
+sequenceDiagram
+    participant Dev as Código fonte
+    participant C as Compilador
+    participant R as Runtime
+
+    Dev->>C: quote do: x * 2
+    C-->>Dev: {:*, [], [{:x,[], Elixir}, 2]}
+
+    Note over Dev: unquote injeta valor externo
+    Dev->>C: x = 10 / quote do: unquote(x) * 2
+    C-->>Dev: {:*, [], [10, 2]}
+
+    Dev->>R: Code.eval_quoted(ast)
+    R-->>Dev: 20
 ```
 
-## Macros
+---
 
-Macros são funções que recebem AST e retornam AST. São expandidas em tempo de compilação.
+## defmacro
 
+Macros recebem AST e devolvem AST. A chamada é substituída pela AST retornada **antes** de compilar.
+
+### Ciclo de expansão
+
+```mermaid
+sequenceDiagram
+    participant Src as Código fonte
+    participant C as Compilador
+    participant Mac as Macro (defmacro)
+
+    Src->>C: Timed.run do Enum.sum(1..1_000_000) end
+    C->>Mac: passa AST do bloco
+    Mac-->>C: retorna AST com t/elapsed/IO.puts
+    Note over C: substitui a chamada pela AST retornada
+    C->>C: compila o código expandido
+```
+
+### Padrões comuns
+
+**1. Macro simples com argumento**
 ```elixir
-defmodule MyMacros do
-  defmacro unless(condition, do: block) do
+defmodule M2 do
+  defmacro greet(name) do
     quote do
-      if !unquote(condition), do: unquote(block)
+      IO.puts("Olá, #{unquote(name)}!")
+    end
+  end
+end
+```
+
+**2. Macro recebe AST, não valor**
+```elixir
+defmodule Dbg do
+  defmacro inspect(expr) do
+    source = Macro.to_string(expr)   # só possível porque é macro
+
+    quote do
+      result = unquote(expr)
+      IO.puts("#{unquote(source)} => #{Kernel.inspect(result)}")
+      result
+    end
+  end
+end
+```
+
+**3. Macro com bloco `do:`**
+```elixir
+defmodule Timed do
+  defmacro run(do: block) do
+    quote do
+      t      = System.monotonic_time(:millisecond)
+      result = unquote(block)
+      IO.puts("#{System.monotonic_time(:millisecond) - t}ms")
+      result
+    end
+  end
+end
+```
+
+**4. Geração de funções em tempo de compilação**
+```elixir
+defmodule Validators do
+  for type <- [:string, :integer, :float, :boolean] do
+    def unquote(:"is_#{type}?")(value) do
+      case unquote(type) do
+        :string  -> is_binary(value)
+        :integer -> is_integer(value)
+        :float   -> is_float(value)
+        :boolean -> is_boolean(value)
+      end
     end
   end
 end
 
-# Uso:
-import MyMacros
-unless false, do: IO.puts("executou")
+Validators.is_string?("hello")   # true
+Validators.is_integer?(42)       # true
 ```
+> O `for` roda em tempo de compilação e gera uma cláusula por iteração.
 
-> **Regra de ouro:** use funções quando possível. Prefira macros apenas quando precisar manipular código em tempo de compilação.
-
-### `defmacro` vs `def`
+### def vs defmacro
 
 | | `def` | `defmacro` |
 |--|-------|------------|
-| Executado | Em tempo de execução | Em tempo de compilação |
-| Recebe | Valores | AST (`quoted expressions`) |
-| Retorna | Qualquer valor | AST que será inserida no código |
+| Executado | Runtime | Tempo de compilação |
+| Recebe | Valores avaliados | AST (código não executado) |
+| Retorna | Qualquer valor | AST que substitui a chamada |
+| Quando usar | Sempre que possível | Só quando necessário manipular código |
 
-## `use` e `__using__`
+---
 
-`use ModuleName` chama `ModuleName.__using__/1` no módulo que usa. É o mecanismo por trás de `use GenServer`, `use ExUnit.Case`, etc.
+## Protocol
 
-```elixir
-defmodule Greeter do
-  defmacro __using__(_opts) do
-    quote do
-      def hello(name), do: "Hello, #{name}!"
-      def goodbye(name), do: "Goodbye, #{name}!"
-    end
-  end
-end
+Polimorfismo baseado em **tipo do dado** — a implementação certa é despachada automaticamente.
 
-defmodule MyModule do
-  use Greeter
-  # MyModule.hello/1 e MyModule.goodbye/1 ficam disponíveis
-end
+### Como o despacho funciona
+
+```mermaid
+graph LR
+    C["Describable.describe(value)"] -->|"Integer"| I["impl for Integer"]
+    C -->|"Float"| F["impl for Float"]
+    C -->|"BitString"| S["impl for BitString"]
+    C -->|"Map"| M["impl for Map"]
+    C -->|"Product (struct)"| P["impl for Product"]
+    C -->|"tipo sem impl"| A["impl for Any\n(@fallback_to_any)"]
 ```
 
-## Module attributes como metadados
-
-Atributos de módulo (ex.: `@doc`, `@spec`, `@behaviour`) são coletados em tempo de compilação e podem ser lidos por macros:
+### Estrutura
 
 ```elixir
-defmodule MyModule do
-  @my_attr "valor"
+# Definição — a "interface"
+defprotocol Describable do
+  def describe(value)
+end
 
-  defmacro show_attr do
-    attr = Module.get_attribute(__CALLER__.module, :my_attr)
-    quote do: IO.puts(unquote(attr))
-  end
+# Implementações para tipos built-in
+defimpl Describable, for: Integer do
+  def describe(n), do: "inteiro: #{n}"
+end
+
+defimpl Describable, for: BitString do
+  def describe(s), do: "string(#{String.length(s)}): \"#{s}\""
+end
+
+# Struct customizada — sem alterar o Protocol original
+defimpl Describable, for: Product do
+  def describe(%Product{name: n, price: p}), do: "produto: #{n} por R$ #{p}"
+end
+
+# Fallback para tipos sem implementação específica
+defprotocol Printable do
+  @fallback_to_any true
+  def print(value)
+end
+
+defimpl Printable, for: Any do
+  def print(value), do: IO.puts("[Any] #{inspect(value)}")
 end
 ```
 
-## `Macro.expand` e `__ENV__`
+### Protocol vs Behaviour
 
-```elixir
-# Inspecionar como uma macro é expandida
-ast = quote do: unless false, do: :ok
-Macro.expand(ast, __ENV__)
-```
+| | `Protocol` | `Behaviour` |
+|--|------------|-------------|
+| Despacho por | Tipo do dado (automático) | Módulo (explícito) |
+| Pergunta | *Como este tipo se comporta?* | *Qual módulo implementa esta interface?* |
+| Extensível por terceiros | Sim | Sim (mas menos comum) |
+| Usado na stdlib | `Enumerable`, `Inspect`, `String.Chars` | `GenServer`, `Supervisor`, `Plug` |
 
-## `__before_compile__` e hooks de compilação
-
-```elixir
-defmodule MyLibrary do
-  defmacro __using__(_) do
-    quote do
-      @before_compile MyLibrary
-    end
-  end
-
-  defmacro __before_compile__(_env) do
-    quote do
-      def summary, do: "módulo compilado com MyLibrary"
-    end
-  end
-end
-```
+---
 
 ## Boas práticas
 
-- Prefira funções e `use` a macros cruas sempre que possível
-- Macros tornam o código mais difícil de debugar e entender
-- Use `Macro.expand/2` e `IO.inspect(quote do: ...)` para depurar
-- Documente o que a macro injeta no módulo chamador
+- Prefira funções quando possível; macros só quando precisar manipular código em compilação
+- Use `Macro.to_string/1` e `IO.inspect(quote do: ...)` para inspecionar ASTs
+- Documente o que cada macro injeta no módulo chamador
+- Em scripts `.exs`, coloque `require` dentro de um `defmodule`, não no top-level
+
