@@ -1,30 +1,38 @@
 # Course 01 — Elixir and Phoenix Bootcamp
 
-This course covers Elixir from first principles, progressing through four sections: language fundamentals, OTP state management, a basic Phoenix API, and a complete banking application with authentication and external integrations.
+Curso que cobre o Elixir do zero, progredindo por quatro seções: fundamentos da linguagem, gerenciamento de estado com OTP, uma API Phoenix básica e uma aplicação bancária completa com autenticação e integrações externas.
 
-## Sections
+## Seções
 
-### section01 — FizzBuzz
+### [section01 — FizzBuzz](section01-fizz-buzz/README.md)
 
-Introduction to Elixir syntax and core idioms through a classic problem. Emphasis on pattern matching with guard clauses, the pipe operator, and file I/O.
+Introdução à sintaxe e idiomas centrais do Elixir por meio do problema clássico FizzBuzz. Ênfase em pattern matching com guards, pipe operator e I/O de arquivos.
 
-### section02 — ExMon
+Conceitos abordados: pattern matching, guard clauses, pipe operator `|>`, tuplas `{:ok, value}` / `{:error, reason}`, `File.read/1`, `Enum.map/2`.
 
-A turn-based battle game (Pokémon-inspired) that introduces OTP Agents for mutable game state, struct-based domain modeling, and a modular action system with randomised damage and healing.
+### [section02 — ExMon](section02-ex-mon/README.md)
 
-### section03 — ExamplePhoenix
+Jogo de batalha por turnos inspirado em Pokémon, que demonstra OTP Agents para estado mutável, modelagem de domínio com structs e despacho de ações modular com dano e cura aleatórios.
 
-A minimal Phoenix application demonstrating the full framework setup: supervisor tree, Ecto repository, router pipelines, and a single JSON endpoint. Serves as a reference structure for Phoenix projects.
+Conceitos abordados: `Agent`, structs, pattern matching para fluxo de controle, `Enum.random/1`, design modular com módulos de ação separados.
 
-### section04 — TestBank
+### [section03 — ExamplePhoenix](section03-example-phoenix/README.md)
 
-A production-grade banking API with user management, account operations, money transfers, Argon2 authentication, and external CEP address validation via the ViaCep API. Includes integration tests using Bypass to mock HTTP calls.
+Aplicação Phoenix 1.8 mínima demonstrando a estrutura padrão do framework: árvore de supervisão OTP, repositório Ecto e um endpoint JSON. Serve como referência antes de construir uma aplicação completa.
 
-## Progression
+Conceitos abordados: estrutura de projeto Phoenix, `Application` e `Supervisor`, Ecto repository, pipelines do Router (`:api`), respostas JSON com `Phoenix.Controller.json/2`.
+
+### [section04 — TestBank](section04-test-bank/README.md)
+
+API bancária RESTful com Phoenix 1.8 demonstrando uma aplicação próxima de produção: separação por contextos, schemas Ecto com constraints, hashing de senha com Argon2, autenticação por token, integração com a API ViaCep e testes de integração com Bypass.
+
+Conceitos abordados: arquitetura de contextos Phoenix, Ecto changesets e constraints, Argon2, autenticação como Plug, cliente HTTP com Tesla, testes com Bypass, Docker com `docker-compose`.
+
+## Progressão
 
 ```
 FizzBuzz  ->  ExMon  ->  ExamplePhoenix  ->  TestBank
- (syntax)     (OTP)      (Phoenix basics)    (full app)
+(sintaxe)     (OTP)      (Phoenix básico)    (app completa)
 ```
 
-Each section builds on knowledge from the previous one.
+Cada seção constrói sobre o conhecimento da anterior.

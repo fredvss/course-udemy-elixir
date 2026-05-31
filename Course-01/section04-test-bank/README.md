@@ -1,11 +1,11 @@
 # TestBank
 
-A RESTful banking API built with Phoenix 1.8, demonstrating a full production-like application: context-based domain separation, Ecto schemas with constraints, Argon2 password hashing, token authentication, external HTTP integration with ViaCep, and integration tests using Bypass.
+API bancária RESTful com Phoenix 1.8, demonstrando uma aplicação próxima de produção: separação por contextos, schemas Ecto com constraints, hashing de senha com Argon2, autenticação por token, integração HTTP com ViaCep e testes de integração com Bypass.
 
-## Architecture
+## Arquitetura
 
 ```
-HTTP Request
+Requisição HTTP
     |
     v
 TestBankWeb.Endpoint
@@ -13,11 +13,11 @@ TestBankWeb.Endpoint
     v
 TestBankWeb.Router
     |
-    +-- /api (public)
+    +-- /api (público)
     |     +-- POST /users          -> UsersController.create
     |     +-- POST /users/login    -> UsersController.login
     |
-    +-- /api (authenticated via Auth plug)
+    +-- /api (autenticado via plug Auth)
           +-- GET    /users/:id         -> UsersController.show
           +-- PUT    /users/:id         -> UsersController.update
           +-- DELETE /users/:id         -> UsersController.delete
@@ -25,32 +25,32 @@ TestBankWeb.Router
           +-- POST   /accounts/transaction -> AccountsController.transaction
 ```
 
-### Context Structure
+### Estrutura de Contextos
 
 ```
 TestBank
   |
   +-- Users
-  |     +-- User (Ecto schema)
-  |     +-- Create       -- validates CEP via ViaCep, hashes password
-  |     +-- Get          -- fetch by ID
-  |     +-- Update       -- update user fields
-  |     +-- Delete       -- delete user record
-  |     +-- Verify       -- login: compares password with Argon2 hash
+  |     +-- User (schema Ecto)
+  |     +-- Create       -- valida CEP via ViaCep, faz hash da senha
+  |     +-- Get          -- busca por ID
+  |     +-- Update       -- atualiza campos do usuário
+  |     +-- Delete       -- remove o registro do usuário
+  |     +-- Verify       -- login: compara senha com hash Argon2
   |
   +-- Accounts
-        +-- Account (Ecto schema)
-        +-- Create       -- creates account linked to user
-        +-- Transaction  -- transfers balance between two accounts
+        +-- Account (schema Ecto)
+        +-- Create       -- cria conta vinculada ao usuário
+        +-- Transaction  -- transfere saldo entre duas contas
 ```
 
-## Database Schema
+## Schema do Banco de Dados
 
 ```
 users
   id          uuid (PK)
   name        string
-  email       string (unique)
+  email       string (único)
   cep         string
   password_hash string
   inserted_at / updated_at
@@ -63,45 +63,45 @@ accounts
 
 Constraints:
   accounts.balance >= 0  (check constraint)
-  one account per user   (unique constraint)
+  uma conta por usuário  (unique constraint)
 ```
 
-## Authentication Flow
+## Fluxo de Autenticação
 
-1. `POST /api/users/login` — verifies password with Argon2, returns a signed token.
-2. All protected routes require the token in the `Authorization` header.
-3. `TestBankWeb.Auth` plug decodes the token and assigns the current user to `conn.assigns`.
+1. `POST /api/users/login` — verifica a senha com Argon2 e retorna um token assinado.
+2. Todas as rotas protegidas exigem o token no header `Authorization`.
+3. O plug `TestBankWeb.Auth` decodifica o token e atribui o usuário atual ao `conn.assigns`.
 
-## External Integration
+## Integração Externa
 
-During user creation, the provided `cep` (Brazilian postal code) is validated against the [ViaCep](https://viacep.com.br/) public API. If the CEP is invalid or the request fails, the user is not created.
+Durante a criação do usuário, o `cep` (CEP brasileiro) é validado na API pública [ViaCep](https://viacep.com.br/). Se o CEP for inválido ou a requisição falhar, o usuário não é criado.
 
-In tests, this HTTP call is intercepted by [Bypass](https://github.com/PSPDFKit-Labs/bypass) to avoid real network requests.
+Nos testes, essa chamada HTTP é interceptada pelo [Bypass](https://github.com/PSPDFKit-Labs/bypass) para evitar requisições de rede reais.
 
-## Key Dependencies
+## Principais Dependências
 
-| Dependency | Purpose |
+| Dependência | Finalidade |
 |---|---|
-| Phoenix 1.8.1 | Web framework |
-| Ecto + Postgrex | Database layer |
-| Argon2 | Password hashing |
-| Tesla | HTTP client for ViaCep |
-| Bypass | Mocking HTTP in tests |
+| Phoenix 1.8.1 | Framework web |
+| Ecto + Postgrex | Camada de banco de dados |
+| Argon2 | Hashing de senha |
+| Tesla | Cliente HTTP para ViaCep |
+| Bypass | Mock de HTTP nos testes |
 
-## Running
+## Como Executar
 
-**With Docker:**
+**Com Docker:**
 
 ```bash
-docker-compose up -d   # starts PostgreSQL
+docker-compose up -d   # sobe o PostgreSQL
 mix deps.get
 mix ecto.setup
 mix phx.server
 ```
 
-**Without Docker:**
+**Sem Docker:**
 
-Configure `config/dev.exs` with your local PostgreSQL credentials, then:
+Configure `config/dev.exs` com suas credenciais locais do PostgreSQL e então:
 
 ```bash
 mix deps.get
@@ -109,20 +109,21 @@ mix ecto.setup
 mix phx.server
 ```
 
-## Running Tests
+## Testes
 
 ```bash
 mix test
 ```
 
-Tests use an isolated database and Bypass stubs for external HTTP calls.
+Os testes usam um banco de dados isolado e stubs Bypass para chamadas HTTP externas.
 
-## Concepts Practiced
+## Conceitos Praticados
 
-- Phoenix context architecture (domain separation)
-- Ecto schemas, changesets, and constraints
-- Argon2 password hashing with `comeonin`
-- Token-based authentication as a Plug
-- External HTTP integration with Tesla
-- Integration tests with Bypass
-- Docker-based database setup
+- Arquitetura de contextos Phoenix (separação de domínio)
+- Ecto schemas, changesets e constraints
+- Hashing de senha com Argon2 via `comeonin`
+- Autenticação por token como Plug
+- Integração HTTP externa com Tesla
+- Testes de integração com Bypass
+- Configuração de banco de dados com Docker
+

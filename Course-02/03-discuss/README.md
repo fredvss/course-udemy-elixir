@@ -1,20 +1,20 @@
 # Discuss
 
-A discussion forum web application built with Phoenix 1.8 and LiveView. The project demonstrates a fully scaffolded Phoenix app with browser session management, CSRF protection, Ecto/PostgreSQL persistence, LiveView for reactive UIs, and Gettext for internationalisation.
+Fórum de discussões web desenvolvido com Phoenix 1.8 e LiveView. O projeto demonstra uma aplicação Phoenix completa com gerenciamento de sessão, proteção CSRF, persistência via Ecto/PostgreSQL, LiveView para UIs reativas e internacionalização com Gettext.
 
-## Architecture
+## Arquitetura
 
 ```
-HTTP Request
+Requisição HTTP
     |
     v
 DiscussWeb.Endpoint
     |
     v
-Plug Pipeline (:browser)
+Pipeline de Plugs (:browser)
   -- Plug.Session
-  -- CSRF protection
-  -- Flash messages
+  -- Proteção CSRF
+  -- Mensagens Flash
     |
     v
 DiscussWeb.Router
@@ -22,7 +22,7 @@ DiscussWeb.Router
     +-- GET /  ->  PageController.home/2
 ```
 
-### Supervisor Tree
+### Árvore de Supervisão
 
 ```
 Discuss.Application
@@ -30,32 +30,32 @@ Discuss.Application
     +-- Discuss.Repo          (Ecto / PostgreSQL)
     +-- {DNSCluster, ...}
     +-- {Phoenix.PubSub, ...}
-    +-- Swoosh.ApiClient       (email, dev mailbox)
+    +-- Swoosh.ApiClient       (email, caixa de entrada dev)
     +-- DiscussWeb.Endpoint
 ```
 
-## Module Overview
+## Módulos
 
-| Module | Responsibility |
+| Módulo | Responsabilidade |
 |---|---|
-| `Discuss.Application` | OTP Application, starts the supervisor tree |
-| `Discuss.Repo` | Ecto repository backed by PostgreSQL |
-| `DiscussWeb.Endpoint` | HTTP entry point, static file serving, session config |
-| `DiscussWeb.Router` | Route and pipeline definitions |
-| `DiscussWeb.Layouts` | Root and app layout templates |
-| `DiscussWeb.PageController` | Renders the home page |
+| `Discuss.Application` | OTP Application, inicia a árvore de supervisão |
+| `Discuss.Repo` | Repositório Ecto com PostgreSQL |
+| `DiscussWeb.Endpoint` | Ponto de entrada HTTP, arquivos estáticos, config de sessão |
+| `DiscussWeb.Router` | Definições de rotas e pipelines |
+| `DiscussWeb.Layouts` | Templates de layout raiz e app |
+| `DiscussWeb.PageController` | Renderiza a página inicial |
 
-## Web Helpers
+## Helpers Web
 
-All LiveView and controller modules import a shared set of helpers via `DiscussWeb` macros:
+Todos os módulos LiveView e controller importam um conjunto compartilhado de helpers via macros `DiscussWeb`:
 
 - `Phoenix.Component` — function components
-- `Phoenix.LiveView` — live view behaviour and helpers
-- `Phoenix.HTML` — HTML tag generation
-- Verified routes via the `~p` sigil
-- Gettext translations
+- `Phoenix.LiveView` — behaviour e helpers de live view
+- `Phoenix.HTML` — geração de tags HTML
+- Rotas verificadas via sigil `~p`
+- Traduções via Gettext
 
-## Running
+## Como Executar
 
 ```bash
 mix deps.get
@@ -63,21 +63,21 @@ mix ecto.setup
 mix phx.server
 ```
 
-The app is available at `http://localhost:4000`.
+A aplicação fica disponível em `http://localhost:4000`.
 
-In development, a live email preview is available at `http://localhost:4000/dev/mailbox`.
+Em desenvolvimento, uma prévia de emails está disponível em `http://localhost:4000/dev/mailbox`.
 
-## Running Tests
+## Testes
 
 ```bash
 mix test
 ```
 
-## Concepts Practiced
+## Conceitos Praticados
 
-- Phoenix LiveView structure and component helpers
-- Browser plug pipeline (sessions, CSRF, flash)
-- Ecto repository and migration setup
-- Gettext internationalisation
-- Swoosh email adapter with dev mailbox
-- Telemetry instrumentation
+- Estrutura e componentes do Phoenix LiveView
+- Pipeline browser (sessões, CSRF, flash)
+- Configuração do repositório Ecto e migrations
+- Internacionalização com Gettext
+- Adaptador de email Swoosh com caixa de entrada de desenvolvimento
+- Instrumentação com Telemetria

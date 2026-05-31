@@ -1,10 +1,10 @@
 # FizzBuzz
 
-An implementation of the classic FizzBuzz problem in Elixir, used as a hands-on introduction to the language's core features: pattern matching, guard clauses, the pipe operator, and file I/O.
+Implementação do clássico problema FizzBuzz em Elixir, usada como introdução prática aos recursos centrais da linguagem: pattern matching, guard clauses, pipe operator e I/O de arquivos.
 
-The program reads a file containing a comma-separated list of integers and transforms each value according to the FizzBuzz rules, returning a list of atoms or numbers.
+O programa lê um arquivo contendo uma lista de inteiros separados por vírgula e transforma cada valor de acordo com as regras do FizzBuzz, retornando uma lista de átomos ou números.
 
-## Architecture
+## Arquitetura
 
 ```
 numbers.txt
@@ -14,45 +14,45 @@ FizzBuzz.build/1
     |
     +-- File.read/1
     |       |
-    |   handle_file_read/1  -- error tuple -> print error
+    |   handle_file_read/1  -- tupla de erro -> imprime o erro
     |       |
     |   convert_and_evaluate_numbers/1
     |       |
     |   String.split -> Enum.map -> evaluate_numbers/1
     |                                   |
-    |                               pattern match with guards
+    |                               pattern match com guards
     |                               :fizz | :buzz | :fizzbuzz | n
     |
     v
-  [result list]
+  [lista de resultados]
 ```
 
-## Module Overview
+## Módulo
 
 ### `FizzBuzz`
 
-| Function | Description |
+| Função | Descrição |
 |---|---|
-| `build/1` | Entry point. Reads a file and returns the evaluated list. |
-| `handle_file_read/1` | Pattern-matches `{:ok, body}` or `{:error, reason}`. |
-| `convert_and_evaluate_numbers/1` | Splits the file string, converts to integers, and maps over `evaluate_numbers/1`. |
-| `evaluate_numbers/1` | Returns `:fizzbuzz`, `:fizz`, `:buzz`, or the number itself using guards. |
+| `build/1` | Ponto de entrada. Lê um arquivo e retorna a lista avaliada. |
+| `handle_file_read/1` | Pattern match em `{:ok, body}` ou `{:error, reason}`. |
+| `convert_and_evaluate_numbers/1` | Divide a string do arquivo, converte para inteiros e aplica `evaluate_numbers/1`. |
+| `evaluate_numbers/1` | Retorna `:fizzbuzz`, `:fizz`, `:buzz` ou o próprio número usando guards. |
 
-## Concepts Practiced
+## Conceitos Praticados
 
-- Pattern matching with guard clauses (`rem(n, 3) == 0`)
-- The pipe operator `|>` for composing transformations
-- Error handling with tagged tuples `{:ok, value}` / `{:error, reason}`
-- File reading with `File.read/1`
-- `Enum.map/2` and `String.split/2`
+- Pattern matching com guard clauses (`rem(n, 3) == 0`)
+- Pipe operator `|>` para compor transformações
+- Tratamento de erros com tuplas `{:ok, value}` / `{:error, reason}`
+- Leitura de arquivo com `File.read/1`
+- `Enum.map/2` e `String.split/2`
 
-## Running
+## Como Executar
 
 ```bash
 mix test
 ```
 
-Or in IEx:
+Ou no IEx:
 
 ```elixir
 iex -S mix
@@ -60,9 +60,9 @@ FizzBuzz.build("numbers.txt")
 # => [1, 2, :fizz, 4, :buzz, :fizz, 7, 8, :fizz, :buzz, ...]
 ```
 
-## Input Format
+## Formato do Arquivo de Entrada
 
-The `numbers.txt` file must contain a single line of comma-separated integers:
+O arquivo `numbers.txt` deve conter uma única linha de inteiros separados por vírgula:
 
 ```
 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15

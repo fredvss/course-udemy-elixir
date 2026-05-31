@@ -1,72 +1,72 @@
 # Identicon
 
-Generates deterministic visual identicons from text input. The same string always produces the same 250x250 pixel PNG image, making it useful for avatar generation based on usernames or other identifiers.
+Gera identicons visuais determinísticos a partir de texto. A mesma string sempre produz a mesma imagem PNG de 250x250 pixels, útil para gerar avatares baseados em nomes de usuário ou outros identificadores.
 
-The implementation demonstrates a pure data-transformation pipeline using Elixir structs, MD5 hashing via Erlang's `:crypto` module, and image rendering via `:egd`.
+A implementação demonstra um pipeline puro de transformação de dados usando structs Elixir, hash MD5 via módulo Erlang `:crypto` e renderização de imagem via `:egd`.
 
 ## Pipeline
 
 ```
-input string
+string de entrada
     |
     v
-hash_input/1       -- MD5 via :crypto.hash -> list of 16 integers
+hash_input/1       -- MD5 via :crypto.hash -> lista de 16 inteiros
     |
     v
-pick_color/1       -- first 3 bytes become {r, g, b}
+pick_color/1       -- primeiros 3 bytes viram {r, g, b}
     |
     v
-build_grid/1       -- arrange into 5x5 grid, mirror each row (col 4 = col 2, col 5 = col 1)
+build_grid/1       -- organiza em grade 5x5, espelha cada linha (col 4 = col 2, col 5 = col 1)
     |
     v
-filter_odd_squares/1  -- keep only cells with even values (the coloured squares)
+filter_odd_squares/1  -- mantém apenas células com valores pares (os quadrados coloridos)
     |
     v
-build_pixel_map/1  -- convert grid index to pixel coordinates (each cell = 50x50 px)
+build_pixel_map/1  -- converte índice da grade em coordenadas de pixel (cada célula = 50x50 px)
     |
     v
-draw_image/1       -- render pixels with :egd using the picked colour
+draw_image/1       -- renderiza os pixels com :egd usando a cor escolhida
     |
     v
-save_image/2       -- write PNG file to disk
+save_image/2       -- grava o arquivo PNG em disco
 ```
 
-## Data Structure
+## Estrutura de Dados
 
-A single struct accumulates data through the pipeline:
+Um único struct acumula os dados ao longo do pipeline:
 
 ```elixir
 %Identicon.Image{
-  hex:       [int, ...],            # 16 MD5 bytes
-  color:     {r, g, b},             # RGB tuple
-  grid:      [{value, index}, ...], # 25 cells
-  pixel_map: [{{x1,y1}, {x2,y2}}, ...] # 25 coordinate pairs
+  hex:       [int, ...],            # 16 bytes do MD5
+  color:     {r, g, b},             # tupla RGB
+  grid:      [{value, index}, ...], # 25 células
+  pixel_map: [{{x1,y1}, {x2,y2}}, ...] # 25 pares de coordenadas
 }
 ```
 
-## Image Layout
+## Layout da Imagem
 
-- Output size: 250x250 pixels
-- Grid: 5 columns x 5 rows, each cell is 50x50 px
-- Symmetry: the grid is horizontally mirrored (only 3 unique columns)
-- Coloring: cells with even hash values are filled; odd cells are white
+- Tamanho de saída: 250x250 pixels
+- Grade: 5 colunas x 5 linhas, cada célula com 50x50 px
+- Simetria: a grade é espelhada horizontalmente (apenas 3 colunas únicas)
+- Coloração: células com valores pares do hash são preenchidas; células ímpares ficam brancas
 
-## Concepts Practiced
+## Conceitos Praticados
 
-- Pipeline architecture with `|>` and struct accumulation
-- Erlang interop: `:crypto`, `:egd`, `:erlang.binary`
-- List chunking with `Enum.chunk_every/2`
-- Index-based coordinate math
-- Deterministic output from hash functions
+- Arquitetura de pipeline com `|>` e struct acumulador
+- Interop com Erlang: `:crypto`, `:egd`, `:erlang.binary`
+- Agrupamento de listas com `Enum.chunk_every/2`
+- Cálculo de coordenadas baseado em índice
+- Saída determinística a partir de funções de hash
 
-## Running
+## Como Executar
 
 ```elixir
 iex -S mix
 
 Identicon.main("banana")
-# => writes "banana.png" to the current directory
+# => grava "banana.png" no diretório atual
 ```
 
-> Note: `:egd` is deprecated in modern OTP versions. The project was developed for learning purposes and may require an older OTP release or a compatible `:egd` installation.
+> Nota: `:egd` está deprecado em versões modernas do OTP. O projeto foi desenvolvido para fins de aprendizado e pode exigir uma versão mais antiga do OTP ou uma instalação compatível do `:egd`.
 

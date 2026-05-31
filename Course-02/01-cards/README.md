@@ -1,48 +1,48 @@
 # Cards
 
-A card deck manipulation library that introduces functional programming patterns in Elixir: pure transformations, list operations, Erlang-based binary serialization, and ExDoc documentation.
+Biblioteca de manipulação de baralho que introduz padrões de programação funcional em Elixir: transformações puras, operações em listas, serialização binária baseada em Erlang e documentação com ExDoc.
 
-The library models a standard deck of cards, supporting shuffle, deal, save, and load operations.
+A biblioteca modela um baralho padrão de cartas com suporte a embaralhar, distribuir, salvar e carregar.
 
-## Architecture
+## Arquitetura
 
-All logic lives in a single `Cards` module. There is no mutable state — every function takes a deck and returns a new one.
+Toda a lógica está em um único módulo `Cards`. Não há estado mutável — cada função recebe um baralho e retorna um novo.
 
 ```
 create_deck/0
     |
     v
-  ["Ace of Spades", "Two of Spades", ...]   # 20 cards (5 values x 4 suits)
+  ["Ace of Spades", "Two of Spades", ...]   # 20 cartas (5 valores x 4 naipes)
     |
-    +-- shuffle/1         ->  randomised deck
+    +-- shuffle/1         ->  baralho embaralhado
     +-- contains?/2       ->  true | false
-    +-- deal/2            ->  {hand, remainder}
-    +-- save/1            ->  writes binary file to disk
-    +-- load/1            ->  reads binary file from disk
-    +-- create_hand/2     ->  create -> shuffle -> deal (convenience function)
+    +-- deal/2            ->  {mão, restante}
+    +-- save/1            ->  escreve arquivo binário em disco
+    +-- load/1            ->  lê arquivo binário do disco
+    +-- create_hand/2     ->  create -> shuffle -> deal (função de conveniência)
 ```
 
-## Module Overview
+## Módulo
 
-| Function | Description |
+| Função | Descrição |
 |---|---|
-| `create_deck/0` | Generates all 20 cards via a nested comprehension (Cartesian product of values and suits) |
-| `shuffle/1` | Randomises card order using `Enum.shuffle/1` |
-| `contains?/2` | Returns `true` if a specific card string is in the deck |
-| `deal/2` | Splits the deck into `{hand, rest}` using `Enum.split/2` |
-| `save/1` | Serialises the deck with `:erlang.term_to_binary/1` and writes to a file |
-| `load/1` | Reads and deserialises the deck; returns an error message on missing file |
-| `create_hand/2` | Composes `create_deck -> shuffle -> deal` in a single call |
+| `create_deck/0` | Gera todas as 20 cartas via compreensão aninhada (produto cartesiano de valores e naipes) |
+| `shuffle/1` | Embaralha a ordem das cartas com `Enum.shuffle/1` |
+| `contains?/2` | Retorna `true` se uma carta específica estiver no baralho |
+| `deal/2` | Divide o baralho em `{mão, restante}` com `Enum.split/2` |
+| `save/1` | Serializa o baralho com `:erlang.term_to_binary/1` e grava em arquivo |
+| `load/1` | Lê e desserializa o baralho; retorna mensagem de erro se o arquivo não existir |
+| `create_hand/2` | Compõe `create_deck -> shuffle -> deal` em uma única chamada |
 
-## Concepts Practiced
+## Conceitos Praticados
 
-- List comprehensions with `for` for Cartesian product
-- Pipe operator `|>` for composing transformations
-- Pattern matching on file read results
-- Erlang term binary serialisation (`:erlang.term_to_binary`, `:erlang.binary_to_term`)
-- ExDoc documentation with `@doc` and examples
+- Compreensões de lista com `for` para produto cartesiano
+- Pipe operator `|>` para compor transformações
+- Pattern matching no resultado de leitura de arquivo
+- Serialização de termos Erlang (`:erlang.term_to_binary`, `:erlang.binary_to_term`)
+- Documentação com ExDoc usando `@doc` e exemplos
 
-## Running
+## Como Executar
 
 ```elixir
 iex -S mix
@@ -52,12 +52,12 @@ deck = Cards.shuffle(deck)
 {hand, _rest} = Cards.deal(deck, 5)
 IO.inspect(hand)
 
-# Save and reload
+# Salvar e recarregar
 Cards.save(deck)
 Cards.load("my_deck")
 ```
 
-## File Format
+## Formato do Arquivo Salvo
 
-The saved file is a raw Erlang binary (not human-readable). It is loaded back with `:erlang.binary_to_term/1`. The filename defaults to `"my_deck"`.
+O arquivo salvo é um binário Erlang puro (não legível). É recarregado com `:erlang.binary_to_term/1`. O nome padrão do arquivo é `"my_deck"`.
 

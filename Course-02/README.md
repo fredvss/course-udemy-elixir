@@ -1,30 +1,36 @@
-# Course 02 — Elixir for Beginners
+# Course 02 — Elixir for Beginners ⚠️ em andamento
 
-Three focused projects that introduce functional programming patterns in Elixir, progressing from a simple library to image generation and finally a full Phoenix web application.
+Três projetos focados que introduzem padrões de programação funcional em Elixir, progredindo de uma biblioteca simples até geração de imagens e uma aplicação web completa com Phoenix LiveView.
 
-## Projects
+## Projetos
 
-### 01-cards
+### [01 — Cards](01-cards/README.md)
 
-A card deck manipulation library. No external dependencies. Covers pure functional transformations, list comprehensions, Erlang binary serialisation, and ExDoc documentation.
+Biblioteca de manipulação de baralho sem dependências externas. Cobre transformações funcionais puras, compreensões de lista, serialização binária Erlang e documentação com ExDoc.
 
-### 02-indenticon
+Conceitos abordados: compreensões de lista (`for`), pipe operator `|>`, pattern matching em resultados de arquivo, serialização com `:erlang.term_to_binary`, `ExDoc` com `@doc`.
 
-An identicon generator that converts a text string into a deterministic 250x250 PNG image. Covers pipeline architecture with struct accumulation, MD5 hashing via `:crypto`, and image rendering via `:egd`.
+### [02 — Identicon](02-indenticon/README.md)
 
-### discuss
+Gerador de identicons que converte texto em uma imagem PNG 250×250 determinística. Cobre arquitetura de pipeline com struct acumulador, hash MD5 via `:crypto` e renderização de imagem via `:egd`.
 
-A Phoenix 1.8 discussion forum application with LiveView support, PostgreSQL persistence via Ecto, browser sessions, CSRF protection, Gettext internationalisation, and email via Swoosh.
+Conceitos abordados: arquitetura de pipeline com `|>` e struct acumulador, interop com Erlang (`:crypto`, `:egd`), `Enum.chunk_every/2`, funções de hash determinísticas.
 
-## Progression
+### [03 — Discuss](03-discuss/README.md)
+
+Fórum de discussões web com Phoenix 1.8 e LiveView. Demonstra uma aplicação Phoenix completa com gerenciamento de sessão, proteção CSRF, persistência via Ecto/PostgreSQL, LiveView para UIs reativas e internacionalização com Gettext.
+
+Conceitos abordados: Phoenix LiveView, pipeline browser (sessões, CSRF, flash), Ecto repository e migrations, Gettext, adaptador de email Swoosh, telemetria.
+
+## Progressão
 
 ```
-01-cards       ->  02-indenticon  ->  discuss
-(pure Elixir)      (pipeline + Erlang)  (Phoenix + LiveView)
+01-cards         ->  02-indenticon       ->  03-discuss
+(Elixir puro)        (pipeline + Erlang)     (Phoenix + LiveView)
 ```
 
-## Prerequisites
+## Pré-requisitos
 
 - Elixir >= 1.14
 - Erlang/OTP >= 25
-- PostgreSQL >= 14 (required by `discuss`)
+- PostgreSQL >= 14 (necessário pelo `03-discuss`)

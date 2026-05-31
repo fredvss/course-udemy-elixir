@@ -4,7 +4,7 @@ Curso de Elixir cobrindo fundamentos, iteração, controle de fluxo, processos e
 
 ## Estrutura
 
-### 01 - Basics
+### [01 - Basics](01-basics/README.md)
 
 Fundamentos da linguagem Elixir.
 
@@ -15,7 +15,9 @@ Fundamentos da linguagem Elixir.
 | `03-functions-arity-guards-clauses` | Aridade, guards e cláusulas de função |
 | `04-lambda-functions` | Funções anônimas (lambdas) e closures |
 
-### 02 - Iterations
+Conceitos abordados: atoms, booleans, números, strings, listas, mapas, tuplas, keyword lists, módulos, funções nomeadas, aridade, guards, cláusulas e funções anônimas.
+
+### [02 - Iterations](02-iterations/README.md)
 
 Iteração e processamento de coleções em Elixir.
 
@@ -29,7 +31,9 @@ Iteração e processamento de coleções em Elixir.
 | `06-streams-files` | Leitura lazy de arquivos com `File.stream!` |
 | `07-comprehensions` | Compreensões de lista com `for` |
 
-### 03 - Control Flow
+Conceitos abordados: recursão, tail-call optimisation (TCO) com acumulador, `Enum`, `Stream`, lazy evaluation, `File.stream!` e compreensões com `for`.
+
+### [03 - Control Flow](03-control-flow/README.md)
 
 Controle de fluxo e tratamento de erros em Elixir.
 
@@ -38,7 +42,9 @@ Controle de fluxo e tratamento de erros em Elixir.
 | `01-conditionals` | Condicionais: `if`, `unless`, `case` e `cond` |
 | `02-exceptions` | Exceções: `raise`, `try/rescue`, `throw` e `exit` |
 
-### 04 - Processes
+Conceitos abordados: `if`, `unless`, `case`, `cond`, `raise`, `try/rescue`, `throw` e `exit`.
+
+### [04 - Processes](04-processes/README.md)
 
 Processos, comunicação e tolerância a falhas em Elixir.
 
@@ -50,9 +56,11 @@ Processos, comunicação e tolerância a falhas em Elixir.
 | `game-of-stones-server` | Servidor de estado para o jogo Game of Stones usando processos puros |
 | `game-of-stones-complete` | Versão completa do jogo com cliente e servidor |
 
-### 05 - GenServer
+Conceitos abordados: `spawn`, `send`/`receive`, mailbox, `spawn_link`, `spawn_monitor`, processos stateful com loop recursivo.
 
-Comportamento `GenServer` da OTP. Veja [05-genserver/README.md](05-genserver/README.md) para uma referência completa dos callbacks e exemplos de uso.
+### [05 - GenServer](05-genserver/README.md)
+
+Comportamento `GenServer` da OTP.
 
 | Pasta | Conteúdo | Callbacks |
 |-------|----------|-----------|
@@ -61,7 +69,9 @@ Comportamento `GenServer` da OTP. Veja [05-genserver/README.md](05-genserver/REA
 | `genserver-calculator` | Calculadora stateful | `init/1`, `handle_call/3`, `handle_cast/2`, `terminate/2` |
 | `game-of-stones` | Jogo interativo com cliente e servidor | `init/1`, `handle_call/3`, `terminate/2` |
 
-### 06 - Mix Tool
+Conceitos abordados: `GenServer.start/3` vs `start_link/3`, `init/1`, `handle_call/3`, `handle_cast/2`, `terminate/2`, registro de nome e validação no init.
+
+### [06 - Mix Tool](06-mix-tool/README.md)
 
 Ferramenta `mix`: projetos, dependências, testes e escripts.
 
@@ -71,7 +81,7 @@ Ferramenta `mix`: projetos, dependências, testes e escripts.
 
 Conceitos abordados: `mix new`, `mix.exs`, gerenciamento de dependências (`mix deps.get`), operadores de versão SemVer, tarefas comuns, geração de escript e testes com ExUnit.
 
-### 07 - Fault Tolerance
+### [07 - Fault Tolerance](07-fault-tolerance/README.md)
 
 Tolerância a falhas com OTP: supervisores, estratégias de reinício e persistência de estado com ETS.
 
@@ -82,13 +92,13 @@ Tolerância a falhas com OTP: supervisores, estratégias de reinício e persist�
 
 Conceitos abordados: `Application` behaviour, `Supervisor.start_link/2`, estratégias `:one_for_one` / `:one_for_all` / `:rest_for_one`, child spec, `start_link` vs `start`, e ETS (Erlang Term Storage).
 
-### 08 - Distribution, Tasks and Agents
+### [08 - Distribution, Tasks and Agents](08-distribution-tasks-agents/README.md)
 
 Distribuição entre nós, execução concorrente com `Task` e estado simplificado com `Agent`.
 
 Conceitos abordados: `Task.async/await`, `Task.async_stream`, `Task.Supervisor`, `Agent.start_link/get/update`, distribuição com `Node.connect/spawn`, cookies e nomes de nó.
 
-### 09 - Metaprogramming
+### [09 - Metaprogramming](09-metaprogramming/README.md)
 
 Macros e metaprogramação: manipulação da AST em tempo de compilação.
 

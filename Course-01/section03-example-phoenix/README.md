@@ -1,17 +1,17 @@
 # ExamplePhoenix
 
-A minimal Phoenix 1.8 application demonstrating the standard project structure, OTP supervision tree, Ecto repository setup, and a single JSON API endpoint. It serves as a reference baseline before building a full application.
+Aplicação Phoenix 1.8 mínima demonstrando a estrutura padrão do projeto, árvore de supervisão OTP, configuração do repositório Ecto e um endpoint JSON. Serve como referência antes de construir uma aplicação completa.
 
-## Architecture
+## Arquitetura
 
 ```
-HTTP Request
+Requisição HTTP
     |
     v
 ExamplePhoenixWeb.Endpoint
     |
     v
-Plug Pipeline (:api scope)
+Pipeline de Plugs (escopo :api)
     |
     v
 ExamplePhoenixWeb.Router
@@ -22,7 +22,7 @@ ExamplePhoenixWeb.Router
                               JSON: {"message": "Welcome"}
 ```
 
-### Supervisor Tree
+### Árvore de Supervisão
 
 ```
 ExamplePhoenix.Application
@@ -33,23 +33,23 @@ ExamplePhoenix.Application
     +-- ExamplePhoenixWeb.Endpoint
 ```
 
-## Module Overview
+## Módulos
 
-| Module | Responsibility |
+| Módulo | Responsabilidade |
 |---|---|
-| `ExamplePhoenix.Application` | OTP Application, starts the supervisor tree |
-| `ExamplePhoenix.Repo` | Ecto repository backed by PostgreSQL |
-| `ExamplePhoenixWeb.Endpoint` | HTTP entry point, plug pipeline |
-| `ExamplePhoenixWeb.Router` | Route definitions and pipeline declarations |
-| `ExamplePhoenixWeb.WelcomeController` | Returns a static JSON welcome message |
+| `ExamplePhoenix.Application` | OTP Application, inicia a árvore de supervisão |
+| `ExamplePhoenix.Repo` | Repositório Ecto com PostgreSQL |
+| `ExamplePhoenixWeb.Endpoint` | Ponto de entrada HTTP, pipeline de plugs |
+| `ExamplePhoenixWeb.Router` | Definições de rotas e pipelines |
+| `ExamplePhoenixWeb.WelcomeController` | Retorna uma mensagem JSON estática de boas-vindas |
 
 ## Endpoints
 
-| Method | Path | Response |
+| Método | Caminho | Resposta |
 |---|---|---|
 | GET | `/api/welcome` | `{"message": "Welcome"}` |
 
-## Running
+## Como Executar
 
 ```bash
 mix deps.get
@@ -57,13 +57,13 @@ mix ecto.setup
 mix phx.server
 ```
 
-The server starts at `http://localhost:4000`.
+O servidor sobe em `http://localhost:4000`.
 
-## Concepts Practiced
+## Conceitos Praticados
 
-- Phoenix project structure and conventions
-- OTP Application and Supervisor
-- Ecto repository configuration
-- Router pipelines (`:api`)
-- JSON responses with `Phoenix.Controller.json/2`
-- Plug middleware chain
+- Estrutura de projeto Phoenix e convenções
+- OTP Application e Supervisor
+- Configuração do repositório Ecto
+- Pipelines do router (`:api`)
+- Respostas JSON com `Phoenix.Controller.json/2`
+- Cadeia de middlewares Plug

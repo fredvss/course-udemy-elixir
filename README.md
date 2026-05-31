@@ -29,7 +29,7 @@ course-udemy-elixir/
 
 ## Cursos
 
-### Course 01 — Elixir and Phoenix Bootcamp
+### [Course 01 — Elixir and Phoenix Bootcamp](Course-01/README.md)
 
 Cobre o Elixir do zero, incluindo programação funcional, primitivos OTP e desenvolvimento web progressivo com Phoenix.
 
@@ -40,7 +40,7 @@ Cobre o Elixir do zero, incluindo programação funcional, primitivos OTP e dese
 | 03 | ExamplePhoenix | Phoenix, Ecto, JSON API |
 | 04 | TestBank | CRUD, autenticação, HTTP externo, constraints com Ecto |
 
-### Course 02 — Elixir for Beginners ⚠️ em andamento
+### [Course 02 — Elixir for Beginners](Course-02/README.md) ⚠️ em andamento
 
 Apresenta padrões de programação funcional por meio de projetos pequenos e focados, culminando em uma aplicação completa com Phoenix LiveView.
 
@@ -50,7 +50,7 @@ Apresenta padrões de programação funcional por meio de projetos pequenos e fo
 | Identicon | Arquitetura de pipeline, hash MD5, renderização de imagem |
 | Discuss | Phoenix, LiveView, Ecto, PostgreSQL |
 
-### Course 03 — Elixir Deep Dive
+### [Course 03 — Elixir Deep Dive](Course-03/README.md)
 
 Cobre a linguagem e OTP em profundidade por meio de exercícios isolados, progredindo de tipos nativos até sistemas distribuídos e metaprogramação.
 
@@ -74,34 +74,3 @@ Cobre a linguagem e OTP em profundidade por meio de exercícios isolados, progre
 - **PostgreSQL** — banco de dados relacional
 - **LiveView** — UI reativa server-side
 - **OTP** — behaviours GenServer, Agent, Supervisor, Application
-
-## Rodando um projeto
-
-Cada sub-projeto é uma aplicação Mix standalone. Para iniciar qualquer um:
-
-```bash
-cd Course-01/section04-test-bank   # ou qualquer diretório de projeto
-mix deps.get
-mix ecto.setup                     # apenas para projetos com banco de dados
-mix phx.server                     # apenas para projetos Phoenix
-```
-
-Para projetos sem web:
-
-```bash
-iex -S mix
-```
-
-Para escripts (ex: `Course-03/06-mix-tool/game_of_stones`):
-
-```bash
-mix escript.build
-./game_of_stones
-```
-
-## Pré-requisitos
-
-- Elixir >= 1.14
-- Erlang/OTP >= 25
-- PostgreSQL >= 14 (necessário nas seções 03, 04 e discuss)
-- Docker (opcional, para section04 via `docker-compose up`)
