@@ -97,10 +97,10 @@ Todo valor em Elixir é imutável. O operador `|>` passa o resultado da express�
 
 | Pasta | Conteúdo |
 |-------|----------|
-| `01-built-in-data-types` | Tipos nativos: atoms, booleans, números, strings, listas, mapas, tuplas e keyword lists |
-| `02-modules-functions` | Definição de módulos e funções nomeadas |
-| `03-functions-arity-guards-clauses` | Aridade, guards e cláusulas de função |
-| `04-lambda-functions` | Funções anônimas (lambdas) e closures |
+| [`01-built-in-data-types`](01-built-in-data-types/) | Tipos nativos: atoms, booleans, números, strings, listas, mapas, tuplas e keyword lists |
+| [`02-modules-functions`](02-modules-functions/) | Definição de módulos e funções nomeadas |
+| [`03-functions-arity-guards-clauses`](03-functions-arity-guards-clauses/) | Aridade, guards e cláusulas de função |
+| [`04-lambda-functions`](04-lambda-functions/) | Funções anônimas (lambdas) e closures |
 
 ## Comandos úteis
 

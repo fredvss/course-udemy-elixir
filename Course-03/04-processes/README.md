@@ -76,11 +76,11 @@ Process.whereis(:nome)          # busca PID pelo nome
 
 | Pasta | Conteúdo |
 |-------|----------|
-| `spawning-processes` | Spawn de múltiplos processos concorrentes |
-| `message-passing` | Comunicação entre processos: envio simples e coleta de respostas |
-| `links-and-monitors` | Tratamento de falhas com `spawn_link` e `spawn_monitor` |
-| `game-of-stones-server` | Servidor de estado para o jogo usando processos puros |
-| `game-of-stones-complete` | Versão completa do jogo com cliente e servidor |
+| [`01-spawning-processes`](01-spawning-processes/) | Spawn de múltiplos processos concorrentes |
+| [`02-message-passing`](02-message-passing/) | Comunicação entre processos: envio simples e coleta de respostas |
+| [`03-links-and-monitors`](03-links-and-monitors/) | Tratamento de falhas com `spawn_link` e `spawn_monitor` |
+| [`04-game-of-stones-server`](04-game-of-stones-server/) | Servidor de estado para o jogo usando processos puros |
+| [`05-game-of-stones-complete`](05-game-of-stones-complete/) | Versão completa do jogo com cliente e servidor |
 
 ## Comandos úteis
 

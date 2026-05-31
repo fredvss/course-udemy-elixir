@@ -84,13 +84,13 @@ for {k, v} <- [a: 1, b: 2], into: %{}, do: {k, v * 10}
 
 | Pasta | Conteúdo |
 |-------|----------|
-| `01-recursion` | Recursão básica: fatorial e map recursivo |
-| `02-recursion-lists` | Recursão sobre listas: encontrando o valor máximo |
-| `03-tail-call-optimization` | Otimização de chamada de cauda (TCO) com acumulador |
-| `04-enum-collections` | Módulo `Enum`, `List`, `Map` e keyword lists |
-| `05-streams` | Processamento lazy com o módulo `Stream` |
-| `06-streams-files` | Leitura lazy de arquivos com `File.stream!` |
-| `07-comprehensions` | Compreensões de lista com `for` |
+| [`01-recursion`](01-recursion/) | Recursão básica: fatorial e map recursivo |
+| [`02-recursion-lists`](02-recursion-lists/) | Recursão sobre listas: encontrando o valor máximo |
+| [`03-tail-call-optimization`](03-tail-call-optimization/) | Otimização de chamada de cauda (TCO) com acumulador |
+| [`04-enum-collections`](04-enum-collections/) | Módulo `Enum`, `List`, `Map` e keyword lists |
+| [`05-streams`](05-streams/) | Processamento lazy com o módulo `Stream` |
+| [`06-streams-files`](06-streams-files/) | Leitura lazy de arquivos com `File.stream!` |
+| [`07-comprehensions`](07-comprehensions/) | Compreensões de lista com `for` |
 
 ## Comandos úteis
 

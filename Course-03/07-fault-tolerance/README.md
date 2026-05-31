@@ -90,5 +90,5 @@ Como a tabela ETS pertence ao processo que a criou, é comum isolá-la em um **S
 
 | Pasta | Conteúdo |
 |-------|----------|
-| `game_of_stones_supervised/` | Game of Stones com Supervisor: Server reinicia automaticamente ao falhar |
-| `game_of_stones_ets/` | Evolução com ETS: estado do jogo sobrevive ao reinício do Server |
+| [`01-game_of_stones_supervised`](01-game_of_stones_supervised/) | Game of Stones com Supervisor: Server reinicia automaticamente ao falhar |
+| [`02-game_of_stones_ets`](02-game_of_stones_ets/) | Evolução com ETS: estado do jogo sobrevive ao reinício do Server |

@@ -90,17 +90,17 @@ exit(:shutdown)  # encerramento supervisionado
 
 | Pasta | Conteúdo |
 |-------|----------|
-| `conditionals` | Condicionais: `if`, `unless`, `case` e `cond` |
-| `exceptions` | Exceções: `raise`, `try/rescue`, `throw` e `exit` |
+| [`01-conditionals`](01-conditionals/) | Condicionais: `if`, `unless`, `case` e `cond` |
+| [`02-exceptions`](02-exceptions/) | Exceções: `raise`, `try/rescue`, `throw` e `exit` |
 
 ## Comandos úteis
 
 ```bash
-elixir conditionals/case.exs
-elixir conditionals/cond.exs
-elixir conditionals/if-else.exs
-elixir exceptions/raise.exs
-elixir exceptions/try-rescue.exs
-elixir exceptions/throw.exs
-elixir exceptions/exits.exs
+elixir 01-conditionals/case.exs
+elixir 01-conditionals/cond.exs
+elixir 01-conditionals/if-else.exs
+elixir 02-exceptions/raise.exs
+elixir 02-exceptions/try-rescue.exs
+elixir 02-exceptions/throw.exs
+elixir 02-exceptions/exits.exs
 ```

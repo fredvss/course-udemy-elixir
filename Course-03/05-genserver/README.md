@@ -251,10 +251,10 @@ Counter.value() |> IO.inspect()  # => 2
 
 | Pasta | Conteúdo | Callbacks usados |
 |-------|----------|-----------------|
-| `genserver-intro` | Primeiro GenServer, estado inicial | `init/1` |
-| `genserver-init-validation` | Validação do estado inicial com guards | `init/1` |
-| `genserver-calculator` | Calculadora stateful | `init/1`, `handle_call/3`, `handle_cast/2`, `terminate/2` |
-| `game-of-stones` | Jogo interativo com cliente e servidor | `init/1`, `handle_call/3`, `terminate/2` |
+| [`01-genserver-intro`](01-genserver-intro/) | Primeiro GenServer, estado inicial | `init/1` |
+| [`02-genserver-init-validation`](02-genserver-init-validation/) | Validação do estado inicial com guards | `init/1` |
+| [`03-genserver-calculator`](03-genserver-calculator/) | Calculadora stateful | `init/1`, `handle_call/3`, `handle_cast/2`, `terminate/2` |
+| [`04-game-of-stones`](04-game-of-stones/) | Jogo interativo com cliente e servidor | `init/1`, `handle_call/3`, `terminate/2` |
 
 ---
 
