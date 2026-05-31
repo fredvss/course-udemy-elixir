@@ -93,7 +93,9 @@ O Server agora rastreia a fase do jogo para evitar chamadas fora de ordem:
 
 ## Persistência de estado com ETS
 
-O `Storage` cria uma tabela ETS no `init/1` e a mantém viva enquanto o próprio processo existir. Por ser um GenServer supervisionado separado, a tabela ETS sobrevive à queda do `Server`.
+**ETS (Erlang Term Storage)** é um mecanismo de armazenamento em memória **nativo do BEAM**, completamente fora do modelo de processos. Enquanto o estado de um GenServer vive dentro do processo e morre com ele, uma tabela ETS existe na VM e só é destruída quando o **processo dono** termina — independentemente de outros processos caírem ou reiniciarem.
+
+O `Storage` cria a tabela no `init/1` e a mantém viva enquanto ele próprio existir. Por ser um GenServer supervisionado **separado** do `Server`, a tabela sobrevive à queda e ao reinício do `Server`.
 
 ```
  ETS table (:game_of_stones_storage)
@@ -106,9 +108,88 @@ O `Storage` cria uma tabela ETS no `init/1` e a mantém viva enquanto o próprio
  └─────────────────────────────────────────────────────┘
 ```
 
-A tabela usa `{:keypos, 2}` — o segundo elemento da tupla (`num_stones`) é a chave. Como pedras só diminuem, cada turno cria uma nova entrada, formando um histórico da partida. O estado mais recente é sempre o de **menor** `num_stones` (primeira entrada num `:ordered_set`, que ordena de forma ascendente).
+### Tipos de tabela
 
-`fetch_all/0` é chamado ao final da partida (quando um jogador vence) para exibir o histórico completo via `IO.inspect`.
+| Tipo | Chaves únicas? | Ordenado? | Uso típico |
+|------|----------------|-----------|------------|
+| `:set` | Sim (substitui duplicatas) | Não | cache, dicionário |
+| `:ordered_set` | Sim (substitui duplicatas) | Sim (ascending, Erlang term order) | históricos, índices |
+| `:bag` | Não (permite mesma chave com valores diferentes) | Não | índices invertidos |
+| `:duplicate_bag` | Não (permite entradas 100% iguais) | Não | logs com duplicatas |
+
+Este projeto usa `:ordered_set`: cada `num_stones` é chave única e a tabela mantém as entradas em ordem **ascendente** pela chave. Como pedras só diminuem, o estado mais recente (menor `num_stones`) fica **sempre na primeira posição** da lista retornada por `:ets.tab2list/1` — por isso `fetch/0` usa `hd(list)`.
+
+### Modos de acesso
+
+| Opção | Quem pode ler/escrever |
+|-------|------------------------|
+| `:public` | Qualquer processo |
+| `:protected` | Processo dono escreve; qualquer um lê |
+| `:private` | Apenas o processo dono |
+
+`:private` foi escolhido porque toda leitura e escrita passa obrigatoriamente pelo `Storage` GenServer. Nenhum processo acessa a tabela diretamente — o encapsulamento é total.
+
+### `:named_table`
+
+Sem essa opção, `:ets.new/2` retorna um `tid` (table identifier) opaco que precisaria ser passado por parâmetro a cada chamada. Com `:named_table`, a tabela é registrada sob o atom `:game_of_stones_storage` e pode ser referenciada por nome em qualquer ponto do Storage:
+
+```elixir
+:ets.insert(:game_of_stones_storage, data)
+:ets.tab2list(:game_of_stones_storage)
+```
+
+### `{:keypos, 2}` — chave no segundo campo
+
+Por padrão o ETS usa o **primeiro elemento** da tupla como chave. Com `{:keypos, 2}`, o segundo elemento é promovido a chave. Como os registros são `{player, num_stones, fase}`, a chave passa a ser `num_stones`:
+
+```elixir
+# Tupla armazenada:
+{1, 30, :game_in_progress}
+# ^  ^   ^
+# |  |   fase
+# |  chave  (keypos: 2)  ← usada para busca, unicidade e ordenação
+# player
+```
+
+Inserir `{2, 30, :game_in_progress}` (mesma chave `30`) **substituiria** a entrada anterior — comportamento de `:ordered_set`.
+
+### Funções ETS usadas neste projeto
+
+| Função | O que faz |
+|--------|-----------|
+| `:ets.new(name, opts)` | Cria a tabela; retorna `tid` (ou usa nome se `:named_table`) |
+| `:ets.insert(table, tuple)` | Insere ou substitui a entrada com aquela chave |
+| `:ets.tab2list(table)` | Retorna todos os registros como lista (ordenada em `:ordered_set`) |
+| `:ets.delete_all_objects(table)` | Remove todos os registros sem destruir a tabela |
+
+> `:ets.delete_all_objects/1` é chamado ao detectar um vencedor (`{:store, {:winner, _}}`), limpando o histórico para a próxima partida sem precisar recriar a tabela.
+
+### Propriedade da tabela e sobrevivência ao crash
+
+```
+Supervisor
+  ├── Storage GenServer ──owns──► ETS :game_of_stones_storage
+  │                                       ▲
+  │                               insert / tab2list
+  │                                       │
+  └── Server GenServer ─────────(cai e reinicia)
+```
+
+A tabela pertence ao **Storage**. Se o `Server` cai (por qualquer razão), o Storage e sua tabela continuam intactos. Ao reiniciar, `Server.init/1` chama `Storage.fetch/0`, que lê o estado mais recente do ETS e restaura a partida exatamente onde parou.
+
+Se o **Storage** caísse, a tabela seria destruída junto e a persistência perdida. Para persistência além da sessão (reinicialização da VM), seria necessário um banco de dados ou arquivo.
+
+### Performance
+
+| Operação | `:set` | `:ordered_set` |
+|----------|--------|----------------|
+| Lookup por chave | O(1) | O(log n) |
+| Inserção | O(1) | O(log n) |
+| Iteração ordenada | N/A | O(n) |
+
+O overhead de O(log n) do `:ordered_set` é negligível para os tamanhos de dados deste jogo, e o benefício de ter `tab2list` já ordenado (sem precisar de `Enum.sort`) justifica a escolha.
+
+`fetch_all/0` é chamado ao final da partida para exibir o histórico completo via `IO.inspect`.
 
 ## O que acontece quando o Server falha
 
