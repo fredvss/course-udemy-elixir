@@ -45,11 +45,11 @@ Cobre o Elixir do zero, incluindo programação funcional, primitivos OTP e dese
 
 Apresenta padrões de programação funcional por meio de projetos pequenos e focados, culminando em uma aplicação completa com Phoenix LiveView.
 
-| Projeto | Conceitos |
-|---|---|
-| Cards | Enum, composição com pipe, I/O de termos Erlang |
-| Identicon | Arquitetura de pipeline, hash MD5, renderização de imagem |
-| Discuss | Phoenix, LiveView, Ecto, PostgreSQL |
+| Seção | Projeto | Conceitos |
+|---|---|---|
+| 01 | Cards | Enum, composição com pipe, I/O de termos Erlang |
+| 02 | Identicon | Arquitetura de pipeline, hash MD5, renderização de imagem |
+| 03 | Discuss | Phoenix, LiveView, Ecto, PostgreSQL |
 
 ### [Course 03 — Elixir Deep Dive](Course-03/)
 

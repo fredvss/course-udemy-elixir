@@ -6,20 +6,20 @@ Metaprogramação em Elixir é escrever **código que gera código** em tempo de
 
 | Arquivo | O que cobre |
 |---------|-------------|
-| `require_import_use.exs` | Os três mecanismos de importação de código: `require`, `import`, `use` |
-| `quote_unquote.exs` | Captura e manipulação da AST com `quote`, `unquote`, `Code.eval_quoted` |
-| `macros.exs` | 6 passos progressivos: `say_hello`, `greet`, `show_ast`, `Dbg.inspect`, `Timed.run`, geração com `for` |
-| `protocol.exs` | Polimorfismo por tipo com `defprotocol` e `defimpl` |
+| `01-require_import_use.exs` | Os três mecanismos de importação de código: `require`, `import`, `use` |
+| `02-quote_unquote.exs` | Captura e manipulação da AST com `quote`, `unquote`, `Code.eval_quoted` |
+| `03-macros.exs` | 6 passos progressivos: `say_hello`, `greet`, `show_ast`, `Dbg.inspect`, `Timed.run`, geração com `for` |
+| `04-protocol.exs` | Polimorfismo por tipo com `defprotocol` e `defimpl` |
 
 ## Como rodar
 
 ```bash
 cd 09-metaprogramming
 
-elixir require_import_use.exs
-elixir quote_unquote.exs
-elixir macros.exs
-elixir protocol.exs
+elixir 01-require_import_use.exs
+elixir 02-quote_unquote.exs
+elixir 03-macros.exs
+elixir 04-protocol.exs
 ```
 
 ---

@@ -96,6 +96,12 @@ Conceitos abordados: `Application` behaviour, `Supervisor.start_link/2`, estrat�
 
 Distribuição entre nós, execução concorrente com `Task` e estado simplificado com `Agent`.
 
+| Arquivo | Conteúdo |
+|---------|----------|
+| [`task.ex`](08-distribution-tasks-agents/task.ex) | `Task.async/await`: execução assíncrona e espera do resultado |
+| [`agent.ex`](08-distribution-tasks-agents/agent.ex) | `Agent.start/get/update`: estado leve sem GenServer |
+| [`storage.ex`](08-distribution-tasks-agents/storage.ex) | Agent com nome global e integração com `Task.async_stream` |
+
 Conceitos abordados: `Task.async/await`, `Task.async_stream`, `Task.Supervisor`, `Agent.start_link/get/update`, distribuição com `Node.connect/spawn`, cookies e nomes de nó.
 
 ### [09 - Metaprogramming](09-metaprogramming/)
@@ -104,10 +110,10 @@ Macros e metaprogramação: manipulação da AST em tempo de compilação.
 
 | Arquivo | Conteúdo |
 |---------|----------|
-| [`require_import_use.exs`](09-metaprogramming/require_import_use.exs) | `require`, `import`, `use` e `__using__/1` |
-| [`quote_unquote.exs`](09-metaprogramming/quote_unquote.exs) | AST, `quote`, `unquote`, `Code.eval_quoted`, `Macro.to_string`, `Macro.escape` |
-| [`macros.exs`](09-metaprogramming/macros.exs) | 6 passos progressivos de `defmacro`: básico, argumentos, AST em compilação, `Dbg.inspect`, `Timed.run`, geração com `for` |
-| [`protocol.exs`](09-metaprogramming/protocol.exs) | Polimorfismo por tipo com `defprotocol`, `defimpl` e `@fallback_to_any` |
+| [`01-require_import_use.exs`](09-metaprogramming/01-require_import_use.exs) | `require`, `import`, `use` e `__using__/1` |
+| [`02-quote_unquote.exs`](09-metaprogramming/02-quote_unquote.exs) | AST, `quote`, `unquote`, `Code.eval_quoted`, `Macro.to_string`, `Macro.escape` |
+| [`03-macros.exs`](09-metaprogramming/03-macros.exs) | 6 passos progressivos de `defmacro`: básico, argumentos, AST em compilação, `Dbg.inspect`, `Timed.run`, geração com `for` |
+| [`04-protocol.exs`](09-metaprogramming/04-protocol.exs) | Polimorfismo por tipo com `defprotocol`, `defimpl` e `@fallback_to_any` |
 
 Conceitos abordados: `quote`/`unquote`, `defmacro`, `require`/`import`/`use`, `__using__/1`, `Macro.to_string`, `Code.eval_quoted`, `defprotocol`, `defimpl`, `@fallback_to_any`.
 
