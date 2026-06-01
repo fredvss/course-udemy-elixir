@@ -98,9 +98,9 @@ Distribuição entre nós, execução concorrente com `Task` e estado simplifica
 
 | Arquivo | Conteúdo |
 |---------|----------|
-| [`task.ex`](08-distribution-tasks-agents/task.ex) | `Task.async/await`: execução assíncrona e espera do resultado |
-| [`agent.ex`](08-distribution-tasks-agents/agent.ex) | `Agent.start/get/update`: estado leve sem GenServer |
-| [`storage.ex`](08-distribution-tasks-agents/storage.ex) | Agent com nome global e integração com `Task.async_stream` |
+| [`01-task.ex`](08-distribution-tasks-agents/01-task.ex) | `Task.async/await`: execução assíncrona e espera do resultado |
+| [`02-agent.ex`](08-distribution-tasks-agents/02-agent.ex) | `Agent.start/get/update`: estado leve sem GenServer |
+| [`03-storage.ex`](08-distribution-tasks-agents/03-storage.ex) | Agent com nome global e integração com `Task.async_stream` |
 
 Conceitos abordados: `Task.async/await`, `Task.async_stream`, `Task.Supervisor`, `Agent.start_link/get/update`, distribuição com `Node.connect/spawn`, cookies e nomes de nó.
 

@@ -6,9 +6,9 @@ Distribuição, execução concorrente de tarefas e gerenciamento simplificado d
 
 | Arquivo | Descrição |
 |---------|-----------|
-| `agent.ex` | Exemplo básico de `Agent`: iniciar, ler e atualizar estado |
-| `task.ex` | Exemplo básico de `Task`: executar trabalho assíncrono e aguardar o resultado |
-| `storage.ex` | Exemplo distribuído combinando `Agent` (estado global) e `Task` (cálculo paralelo de fatoriais) |
+| `01-task.ex` | Exemplo básico de `Task`: executar trabalho assíncrono e aguardar o resultado |
+| `02-agent.ex` | Exemplo básico de `Agent`: iniciar, ler e atualizar estado |
+| `03-storage.ex` | Exemplo distribuído combinando `Agent` (estado global) e `Task` (cálculo paralelo de fatoriais) |
 
 ---
 
@@ -16,7 +16,7 @@ Distribuição, execução concorrente de tarefas e gerenciamento simplificado d
 
 `Task` é uma abstração sobre processos para executar trabalho concorrente e recuperar o resultado de forma simples.
 
-### Exemplo básico (`task.ex`)
+### Exemplo básico (`01-task.ex`)
 
 ```elixir
 worker = Task.async(fn -> Demo.work() end)
@@ -56,7 +56,7 @@ sequenceDiagram
 Quando o trabalho é processar uma **coleção inteira em paralelo**, `Task.async_stream` é mais ergonômico do que criar tasks manualmente — é exatamente o que `FactorialProducer.products_of/1` faz internamente:
 
 ```elixir
-# forma manual (usada no storage.ex)
+# forma manual (usada no 03-storage.ex)
 numbers
 |> Stream.map(fn n -> Task.async(fn -> work(n) end) end)
 |> Enum.map(&Task.await/1)
@@ -73,7 +73,7 @@ numbers
 
 `Agent` é um GenServer simplificado para gerenciar estado. Útil quando a lógica de negócio está no cliente e o processo só precisa guardar um valor.
 
-### Exemplo básico (`agent.ex`)
+### Exemplo básico (`02-agent.ex`)
 
 ```elixir
 {:ok, pid} = Agent.start(fn -> 5 end)
@@ -160,9 +160,9 @@ graph LR
 
 > Cada nó cria suas tasks localmente, mas `Storage.put/2` chama o Agent pelo nome global `{:global, :storage}`. A BEAM roteia a mensagem automaticamente para o nó onde o Agent foi iniciado (node1), sem nenhuma configuração extra.
 
-### Exemplo distribuído: Fatoriais em paralelo (`storage.ex`)
+### Exemplo distribuído: Fatoriais em paralelo (`03-storage.ex`)
 
-O arquivo `storage.ex` define dois módulos:
+O arquivo `03-storage.ex` define dois módulos:
 
 - **`Storage`** — Agent com nome global (`{:global, :storage}`), acessível por qualquer nó do cluster. Armazena os resultados dos fatoriais em um `Map`.
 - **`FactorialProducer`** — Usa `Task.async` para calcular fatoriais em paralelo e salva cada resultado no `Storage` distribuído.
@@ -202,7 +202,7 @@ Abra dois terminais e carregue o mesmo arquivo em cada nó:
 **Terminal 1 — node1**
 
 ```bash
-iex --sname node1 storage.ex
+iex --sname node1 03-storage.ex
 ```
 
 ```elixir
@@ -233,7 +233,7 @@ iex(node1@fred-pc)5> Storage.factorials()
 **Terminal 2 — node2**
 
 ```bash
-iex --sname node2 storage.ex
+iex --sname node2 03-storage.ex
 ```
 
 ```elixir
