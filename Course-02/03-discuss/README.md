@@ -81,3 +81,27 @@ mix test
 - Internacionalização com Gettext
 - Adaptador de email Swoosh com caixa de entrada de desenvolvimento
 - Instrumentação com Telemetria
+
+## Diagrama
+```mermaid
+flowchart TD
+    A[Browser acessa GET /] --> B[Endpoint]
+    B --> C[Router]
+    C --> D[PageController.home/2]
+    D --> E[render conn, :home]
+
+    E --> F[PageHTML]
+    F --> G[home.html.heex]
+
+    G --> H[Conteúdo da página]
+
+    H --> I[app.html.heex]
+    I --> J[root.html.heex]
+
+    J --> K[HTML final enviado ao browser]
+
+    L[core_components.ex] -. fornece componentes .-> G
+    L -. fornece componentes .-> I
+    M[outros templates/liveviews]
+    L -. fornece componentes .-> M
+```
