@@ -1,0 +1,5 @@
+Elixir é uma linguagem funcional
+construída sobre a Erlang VM.
+
+Este arquivo é usado pelo projeto file_io
+para demonstrar File.read/1.

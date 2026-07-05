@@ -1,4 +1,10 @@
-<div class="container">
-  <h1>New Topic</h1>
-  <p>Create a new topic right over here.</p>
-</div>
+<Layouts.app flash={@flash}>
+  <.header>
+    New Topic
+  </.header>
+
+  <.form for={@changeset} action={~p"/topics"} id="topic-form">
+    <.input field={@form[:title]} type="text" label="Title" />
+    <.button type="submit">Create Topic</.button>
+  </.form>
+</Layouts.app>

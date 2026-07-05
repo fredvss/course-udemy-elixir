@@ -24,6 +24,7 @@ defmodule DiscussWeb.Router do
     pipe_through :browser
 
     get "/new", TopicController, :new
+    post "/", TopicController, :create
   end
 
   # Other scopes may use custom stacks.
